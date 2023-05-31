@@ -1,0 +1,26 @@
+#loginForm {
+    display: block;
+}
+
+#createForm {
+    display: none;
+}
+
+#loginFormLink {
+    display: none;
+}
+
+#login-btn,
+#signup-btn {
+    width: 150px;
+    padding: 10px;
+    transition: transform 0.3s;
+}
+
+#login-btn:hover,
+#signup-btn:hover {
+    transform: scale(1.025);
+}
+
+
+

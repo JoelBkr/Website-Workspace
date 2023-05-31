@@ -1,0 +1,144 @@
+@import url('https://fonts.googleapis.com/css2?family=Bruno+Ace+SC&display=swap');
+
+* {
+    scroll-behavior: smooth;
+    font-family: system-ui;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+}
+
+h1 {
+    font-family: 'Bruno Ace SC', cursive;
+}
+
+
+.container {
+    background: url(../pictures/Background.png) ;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center center;
+    background-size: cover;
+    width: 100%;
+    padding-top: 2vh;
+}
+
+.page-content {
+    display: flex;
+    flex-wrap: wrap;
+    padding-left: 240px;
+    justify-content: space-evenly;
+}
+
+.navbar {
+    z-index: 10;
+    width: 220px;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    padding: 0 10px;
+    background-color: rgba(255, 255, 255, 0.5);
+    backdrop-filter: blur(5px);
+    color: #000000;
+    transition: all 0.3s ease-in-out;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+}
+
+.navbar .scrollLink {
+    width: 220px;
+    display: block;
+    padding: 10px 0;
+    text-decoration: none;
+    color: #000000;
+    background-color: #ffffff;
+    border: none;
+    color: #333333;
+    font-weight: bold;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 15px;
+    box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    transition: all 0.3s ease-in-out;
+}
+
+.navbar .scrollLink:hover {
+    scale: 1.01;
+}
+
+.menu-icon {
+    z-index: 10;
+    display: none;
+    position: fixed;
+    top: 10px;
+    left: 10px;
+    cursor: pointer;
+    font-size: 24px;
+    color: #fff;
+}
+
+.topBar {
+    z-index: 10;
+    padding-top: -70px;
+    margin-top: -2vh;
+    width: 100%;
+    background-color: rgba(255, 255, 255, 0.5);
+    backdrop-filter: blur(5px);
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.toolBig {
+    width: 80vw;
+    background-color: rgba(255, 255, 255, 0.5);
+    backdrop-filter: blur(10px);
+    padding: 20px;
+    border-radius: 3vh;
+    margin: 10px;
+}
+
+.toolSmall {
+    width: 400px;
+    height: 400px;
+    background-color: rgba(255, 255, 255, 0.5);
+    backdrop-filter: blur(5px);
+    padding: 20px;
+    border-radius: 3vh;
+    margin: 10px;
+}
+
+@media screen and (max-width: 1024px) {
+    .navbar {
+        transform: translateX(-240px);
+    }
+
+    .menu-icon {
+        display: block;
+    }
+
+    .navbar.active {
+        transform: translateX(0);
+    }
+}
+
+@media (max-width: 1024px) {
+    #header {
+        position: fixed;
+    }
+
+    .page-content {
+        padding-left: 0px;
+    }
+}
+
+@media (max-width: 600px) {
+    .toolSmall {
+        width: 60%;
+    }
+}

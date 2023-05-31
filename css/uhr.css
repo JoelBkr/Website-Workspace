@@ -1,0 +1,84 @@
+.clockInput {
+  width: 30px;
+  height: 30px;
+  text-align: center;
+}
+
+#timer {
+  font-size: 40px;
+}
+
+#display {
+  font-size: 40px;
+}
+
+#timerSection {
+  display: none;
+}
+
+#headingTimer {
+  cursor: pointer;
+  text-decoration: none;
+  color: #444444;
+  font-size: 40px;
+  margin-bottom: 10px;
+}
+
+#headingStopwatch {
+  cursor: pointer;
+  text-decoration: none;
+  border-bottom: 2px solid blue;
+  font-size: 40px;
+  margin-bottom: 10px;
+}
+
+.invisible-button {
+  background: none;
+  border: none;
+  color: inherit;
+  cursor: pointer;
+}
+
+#popup {
+  position: absolute;
+  z-index: 9999;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 400px;
+  height: 400px;
+  background-color: #ffffff;
+  border: 1px solid #000000;
+  border-radius: 20px;
+  z-index: 9999;
+  -webkit-user-select: none;
+  /* Safari */
+  -moz-user-select: none;
+  /* Firefox */
+  -ms-user-select: none;
+  /* IE10+/Edge */
+  user-select: none;
+  /* Standard */
+}
+
+#header {
+  background-color: #dddddd;
+  padding: 10px;
+  cursor: move;
+  color: #dddddd;
+}
+
+#title {
+  font-weight: bold;
+}
+
+#closeButton {
+  float: right;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+}
+
+#content {
+  padding: 10px;
+}

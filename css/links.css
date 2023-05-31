@@ -1,0 +1,72 @@
+  /* Stil für das Pop-up-Fenster */
+  .popup {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background-color: #fff;
+      padding: 20px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      box-shadow: 0 0 10px #ccc;
+      z-index: 9999;
+      display: none;
+  }
+
+  /* Stil für den Löschen-Button */
+  .delete-btn {
+      background-color: #f00;
+      color: #fff;
+      border: none;
+      border-radius: 0 10px 10px 0;
+      padding: 5px 10px;
+      cursor: pointer;
+      transition: background-color 0.3s ease-in-out;
+      margin-bottom: 10px;
+  }
+
+  .delete-btn:hover {
+      background-color: rgb(255, 75, 75);
+  }
+
+  .savedLink {
+      background: #ffffff;
+      color: #333333;
+      border-radius: 10px 0 0 10px;
+      padding: 5px 8rem;
+      text-align: center;
+      text-decoration: none;
+      height: 50px;
+      border: none;
+      font-weight: bold;
+      cursor: pointer;
+      text-align: left;
+      box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.1);
+      text-align: center;
+      margin-top: 5px;
+      transition: all 0.3s ease-in-out;
+  }
+
+  .savedLink:hover {
+      scale: 1.1;
+  }
+
+  .new-button {
+      background-color: #29bf12;
+      border: none;
+      color: #ffffff;
+      padding: 2px 6px;
+      font-size: 15px;
+      font-weight: bold;
+      cursor: pointer;
+      text-align: left;
+      border-radius: 8px;
+      box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.1);
+      text-align: center;
+      margin-top: 5px;
+      transition: all 0.3s ease-in-out;
+  }
+
+  .new-button:hover {
+      scale: 1.1;
+  }

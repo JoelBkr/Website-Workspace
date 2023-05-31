@@ -1,0 +1,42 @@
+.searchBar {
+  background-color: #ffffff;
+  border: none;
+  color: #333333;
+  padding: 2px 15px;
+  font-size: 15px;
+  font-weight: bold;
+  cursor: pointer;
+  text-align: left;
+  vertical-align: middle;
+  border-radius: 30px;
+  box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.1);
+  margin: 5px 0px;
+  resize: none;
+  height: 5vh;
+  width: 50vw;
+  line-height: 5vh;
+}
+
+.searchBar:hover {
+  cursor: text;
+}
+
+.searchBarWrapper {
+  display: flex;
+}
+
+.searchButton {
+  background-color: transparent;
+  border: none;
+  transition: all 0.3s ease-in-out;
+  font-size: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: 10px;
+}
+
+.searchButton:hover {
+  cursor: pointer;
+  scale: 1.1;
+}
