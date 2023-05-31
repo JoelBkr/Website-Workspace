@@ -23,7 +23,7 @@ function toggleVisibility(tool) {
     // Hintergrundbild aus Local Storage laden, wenn verfügbar
     var bgImage = localStorage.getItem("bgImage");
     if (bgImage) {
-      document.querySelector(".container").style.backgroundImage = "url(" + bgImage + ")";
+      document.querySelector("body").style.backgroundImage = "url(" + bgImage + ")";
     }
   });
   
@@ -32,7 +32,7 @@ function toggleVisibility(tool) {
     var file = input.files[0];
     var reader = new FileReader();
     reader.onload = function (e) {
-      document.querySelector(".container").style.backgroundImage = "url(" + e.target.result + ")";
+      document.querySelector("body").style.backgroundImage = "url(" + e.target.result + ")";
       // Altes Hintergrundbild aus dem Local Storage entfernen
       localStorage.removeItem("bgImage");
       // Neues Hintergrundbild im Local Storage speichern
@@ -43,7 +43,7 @@ function toggleVisibility(tool) {
   
   function resetBackground() {
     // Hintergrund auf das Bild "pictures/Background.png" zurücksetzen
-    document.querySelector(".container").style.backgroundImage = "url(pictures/Background.png)";
+    document.querySelector("body").style.backgroundImage = "url(pictures/Background.png)";
     // Hintergrundbild aus dem Local Storage entfernen
     localStorage.removeItem("bgImage");
   }

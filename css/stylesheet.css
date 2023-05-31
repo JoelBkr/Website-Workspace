@@ -8,6 +8,11 @@
 body {
     margin: 0;
     padding: 0;
+    background-image: url("Background.png");
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center center;
+    background-size: cover;
 }
 
 h1 {
@@ -16,11 +21,6 @@ h1 {
 
 
 .container {
-    background: url(../pictures/Background.png) ;
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-    background-position: center center;
-    background-size: cover;
     width: 100%;
     padding-top: 2vh;
 }
