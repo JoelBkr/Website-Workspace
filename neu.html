@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Website Workspace</title>
 
-    <link rel="stylesheet" href="css/stylesheet.css">
+    <link rel="stylesheet" href="css/realstyle.css">
     <link rel="stylesheet" href="css/einheiten.css">
     <link rel="stylesheet" href="css/calculator.css">
     <link rel="stylesheet" href="css/timeDifference.css">
@@ -18,8 +18,8 @@
     <link rel="stylesheet" href="css/footer.css">
     <link rel="stylesheet" href="css/settings.css">
 
-    <script src="https://kit.fontawesome.com/278526c7b3.js" crossorigin="anonymous"></script>
-    <!-- <script src="js/script.js"></script> -->
+     <script src="https://kit.fontawesome.com/278526c7b3.js" crossorigin="anonymous"></script>
+     <script src="js/script.js"></script>
 </head>
 
 <body>
@@ -36,18 +36,16 @@
             <button class="scrollLink" onclick="settingsVisibe()"><i class="fa-solid fa-gear"></i></button>
             </ul>
         </div>
-    </div>
-    <div class="menu-icon">&#9776;</div>
-    <script>
-      const menuIcon = document.querySelector('.menu-icon');
-      const navbar = document.querySelector('.navbar');
-  
-      menuIcon.addEventListener('click', () => {
-        navbar.classList.toggle('active');
-      });
-    </script>
+        <div class="menu-icon">&#9776;</div>
+        <script>
+            const menuIcon = document.querySelector('.menu-icon');
+            const navbar = document.querySelector('.navbar');
 
-    <div class="page-content">
+            menuIcon.addEventListener('click', () => {
+                navbar.classList.toggle('active');
+            });
+        </script>
+
         <div class="topBar">
             <script src="js/searchBar.js"></script>
             <div class="searchBarWrapper" id="suche">
@@ -163,6 +161,25 @@
             <br><br>
             <button class="button-small" onclick="swapUnits()">Einheiten tauschen</button>
         </div>
+
+        <div class="footer">
+            <script src="js/footer.js"></script>
+
+            <a href="impressum.index">Impressum</a>
+            <a href="datenschutz.index">Datenschutzerklärung</a>
+        </div>
+
+
+
+
+
+
+
+
+
+
+
+
     </div>
 
 </body>

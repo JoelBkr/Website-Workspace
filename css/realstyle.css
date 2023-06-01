@@ -1,33 +1,61 @@
-@import url('https://fonts.googleapis.com/css2?family=Bruno+Ace+SC&display=swap');
-
 * {
-    scroll-behavior: smooth;
-    font-family: system-ui;
     margin: 0;
     padding: 0;
 }
 
-h1 {
-    font-family: 'Bruno Ace SC', cursive;
-}
-
-
 .container {
+    width: 100%;
+    padding-bottom: 0px;
     background: rgb(1,122,248);
     background: linear-gradient(0deg, rgba(1,122,248,1) 0%, rgba(152,216,251,1) 50%, rgba(0,151,240,1) 100%); 
 }
 
-.page-content {
+.toolBig {
+    width: 80vw;
+    background-color: rgba(255, 255, 255, 0.5);
+    backdrop-filter: blur(10px);
+    padding: 20px;
+    border-radius: 3vh;
+    margin: 10px;
+}
+
+.toolSmall {
+    width: 400px;
+    height: 400px;
+    background-color: rgba(255, 255, 255, 0.5);
+    backdrop-filter: blur(5px);
+    padding: 20px;
+    border-radius: 3vh;
+    margin: 10px;
+}
+
+.topBar {
+    z-index: 10;
+    padding-top: -70px;
+    margin-top: -2vh;
+    max-width: 100%;
+    background-color: rgba(255, 255, 255, 0.5);
+    backdrop-filter: blur(5px);
     display: flex;
-    flex-wrap: wrap;
-    padding-left: 240px;
     justify-content: space-evenly;
+    align-items: center;
+}
+
+.menu-icon {
+    z-index: 9999999;
+    display: none;
+    position: fixed;
+    top: 10px;
+    left: 10px;
+    cursor: pointer;
+    font-size: 24px;
+    color: #fff;
 }
 
 .navbar {
     z-index: 10;
     width: 220px;
-    height: 100%;
+    height: 100vh;
     position: fixed;
     top: 0;
     left: 0;
@@ -72,37 +100,6 @@ h1 {
     cursor: pointer;
     font-size: 24px;
     color: #fff;
-}
-
-.topBar {
-    z-index: 10;
-    padding-top: -70px;
-    margin-top: -2vh;
-    max-width: 100%;
-    background-color: rgba(255, 255, 255, 0.5);
-    backdrop-filter: blur(5px);
-    display: flex;
-    justify-content: space-evenly;
-    align-items: center;
-}
-
-.toolBig {
-    width: 80vw;
-    background-color: rgba(255, 255, 255, 0.5);
-    backdrop-filter: blur(10px);
-    padding: 20px;
-    border-radius: 3vh;
-    margin: 10px;
-}
-
-.toolSmall {
-    width: 400px;
-    height: 400px;
-    background-color: rgba(255, 255, 255, 0.5);
-    backdrop-filter: blur(5px);
-    padding: 20px;
-    border-radius: 3vh;
-    margin: 10px;
 }
 
 @media screen and (max-width: 1024px) {
