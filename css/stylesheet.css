@@ -11,23 +11,34 @@ h1 {
     font-family: 'Bruno Ace SC', cursive;
 }
 
-
 .container {
-    background: rgb(1,122,248);
-    background: linear-gradient(0deg, rgba(1,122,248,1) 0%, rgba(152,216,251,1) 50%, rgba(0,151,240,1) 100%); 
+    max-width: 100%;
+    background: rgb(1, 122, 248);
+    background: linear-gradient(0deg, rgba(1, 122, 248, 1) 0%, rgba(152, 216, 251, 1) 50%, rgba(0, 151, 240, 1) 100%);
 }
 
-.page-content {
+.toolsContainer {
+    max-width: 100%;
+    margin-left: 240px;
     display: flex;
     flex-wrap: wrap;
-    padding-left: 240px;
     justify-content: space-evenly;
+}
+
+.topBar {
+    width: 100%;
+    z-index: 10;
+    background-color: rgba(255, 255, 255, 0.5);
+    backdrop-filter: blur(5px);
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
 }
 
 .navbar {
     z-index: 10;
     width: 220px;
-    height: 100%;
+    height: 100vh;
     position: fixed;
     top: 0;
     left: 0;
@@ -74,18 +85,6 @@ h1 {
     color: #fff;
 }
 
-.topBar {
-    z-index: 10;
-    padding-top: -70px;
-    margin-top: -2vh;
-    max-width: 100%;
-    background-color: rgba(255, 255, 255, 0.5);
-    backdrop-filter: blur(5px);
-    display: flex;
-    justify-content: space-evenly;
-    align-items: center;
-}
-
 .toolBig {
     width: 80vw;
     background-color: rgba(255, 255, 255, 0.5);
@@ -124,8 +123,8 @@ h1 {
         position: fixed;
     }
 
-    .page-content {
-        padding-left: 0px;
+    .toolsContainer {
+        margin-left: 0px;
     }
 }
 

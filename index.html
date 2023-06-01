@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Website Workspace</title>
 
-    <link rel="stylesheet" href="css/realstyle.css">
+    <link rel="stylesheet" href="css/stylesheet.css">
     <link rel="stylesheet" href="css/einheiten.css">
     <link rel="stylesheet" href="css/calculator.css">
     <link rel="stylesheet" href="css/timeDifference.css">
@@ -18,8 +18,8 @@
     <link rel="stylesheet" href="css/footer.css">
     <link rel="stylesheet" href="css/settings.css">
 
-     <script src="https://kit.fontawesome.com/278526c7b3.js" crossorigin="anonymous"></script>
-     <script src="js/script.js"></script>
+    <script src="https://kit.fontawesome.com/278526c7b3.js" crossorigin="anonymous"></script>
+    <script src="js/script.js"></script>
 </head>
 
 <body>
@@ -45,129 +45,131 @@
                 navbar.classList.toggle('active');
             });
         </script>
-
-        <div class="topBar">
-            <script src="js/searchBar.js"></script>
-            <div class="searchBarWrapper" id="suche">
-                <input placeholder="Mit Google suchen..." class="searchBar" id="suchtext"
-                    onkeypress="handleEnterSearchBar(event)"></input>
-                <br>
-                <button class="searchButton" onclick="suche()"><i class="fa-solid fa-magnifying-glass"></i></button>
-            </div>
-        </div>
-
-        <div class="toolBig" id="translator">
-            <div class="translatorContainer">
-                <div class="inputContainer">
-                    <label for="source_lang">Ausgangssprache:</label>
-                    <select id="source_lang" class="button" onchange="setPlaceholder(), uebersetze()">
-                        <option value="de">Deutsch</option>
-                        <option value="en">Englisch</option>
-                        <option value="fr">Französisch</option>
-                        <option value="es">Spanisch</option>
-                        <option value="it">Italienisch</option>
-                        <option value="pt">Portugiesisch</option>
-                        <option value="nl">Niederländisch</option>
-                        <option value="sv">Schwedisch</option>
-                        <option value="no">Norwegisch</option>
-                        <option value="da">Dänisch</option>
-                        <option value="fi">Finnisch</option>
-                        <option value="pl">Polnisch</option>
-                        <option value="cs">Tschechisch</option>
-                        <option value="sk">Slowakisch</option>
-                        <option value="hu">Ungarisch</option>
-                        <option value="ro">Rumänisch</option>
-                        <option value="bg">Bulgarisch</option>
-                        <option value="hr">Kroatisch</option>
-                        <option value="sr">Serbisch</option>
-                        <option value="sl">Slowenisch</option>
-                        <option value="et">Estnisch</option>
-                        <option value="lv">Lettisch</option>
-                        <option value="lt">Litauisch</option>
-                        <option value="el">Griechisch</option>
-                        <option value="zh-CN">Chinesisch (vereinfacht)</option>
-                    </select><br><br>
-
-                    <textarea class="eingabe" type="text" id="input_text" name="input_text"
-                        onkeypress="handleEnterTranslator(event)"></textarea>
-                    <br><br>
-                </div>
-
-                <div class="outputContainer">
-                    <label for="target_lang">Zielsprache:</label>
-                    <select id="target_lang" class="button" onchange="setPlaceholder(), uebersetze()">
-                        <option value="en">Englisch</option>
-                        <option value="de">Deutsch</option>
-                        <option value="fr">Französisch</option>
-                        <option value="es">Spanisch</option>
-                        <option value="it">Italienisch</option>
-                        <option value="pt">Portugiesisch</option>
-                        <option value="nl">Niederländisch</option>
-                        <option value="sv">Schwedisch</option>
-                        <option value="no">Norwegisch</option>
-                        <option value="da">Dänisch</option>
-                        <option value="fi">Finnisch</option>
-                        <option value="pl">Polnisch</option>
-                        <option value="cs">Tschechisch</option>
-                        <option value="sk">Slowakisch</option>
-                        <option value="hu">Ungarisch</option>
-                        <option value="ro">Rumänisch</option>
-                        <option value="bg">Bulgarisch</option>
-                        <option value="hr">Kroatisch</option>
-                        <option value="sr">Serbisch</option>
-                        <option value="sl">Slowenisch</option>
-                        <option value="et">Estnisch</option>
-                        <option value="lv">Lettisch</option>
-                        <option value="lt">Litauisch</option>
-                        <option value="el">Griechisch</option>
-                        <option value="zh-CN">Chinesisch (vereinfacht)</option>
-                    </select><br><br>
-                    <textarea class="eingabe" type="text" id="output_text" name="output_text"></textarea>
+        <div class="toolsContainer">
+            <div class="topBar">
+                <script src="js/searchBar.js"></script>
+                <div class="searchBarWrapper" id="suche">
+                    <input placeholder="Mit Google suchen..." class="searchBar" id="suchtext"
+                        onkeypress="handleEnterSearchBar(event)"></input>
+                    <br>
+                    <button class="searchButton" onclick="suche()"><i class="fa-solid fa-magnifying-glass"></i></button>
                 </div>
             </div>
-        </div>
 
-        <div class="toolSmall" id="einheiten">
-            <script src="js/einheiten.js"></script>
-            <h1 style="font-size: 20px;">Einheiten Umrechner</h1>
-            <label for="select1">Einheitentyp:</label>
-            <select class="button" id="select1" onchange="selectChange()">
-                <option value="choose" selected>Wählen</option>
-                <option value="length">Länge</option>
-                <option value="time">Zeit</option>
-                <option value="velocity">Geschwindigkeit</option>
-                <option value="area">Fläche</option>
-                <option value="energy">Energie</option>
-                <option value="mass">Masse</option>
-                <option value="temperature">Temperatur</option>
-                <option value="volume">Volumen</option>
-                <option value="power">Leistung</option>
-            </select>
-            <br><br>
-            <label for="select2">Ausgangseinheit:</label>
-            <select class="button" id="select2" onchange="convert()">
-            </select>
-            <br><br>
-            <label for="input">Eingabe:</label>
-            <input type="number" id="input" onchange="convert()">
-            <br><br>
-            <label for="result">Ergebnis:</label>
-            <input type="text" id="result" disabled>
-            <button onclick="copyToClipboard()">Kopieren</button>
-            <br><br>
-            <label for="select3">Zieleinheit:</label>
-            <select class="button" id="select3" onchange="convert()">
-            </select>
-            <br><br>
-            <button class="button-small" onclick="swapUnits()">Einheiten tauschen</button>
-        </div>
+            <div class="toolBig" id="translator">
+                <div class="translatorContainer">
+                    <div class="inputContainer">
+                        <label for="source_lang">Ausgangssprache:</label>
+                        <select id="source_lang" class="button" onchange="setPlaceholder(), uebersetze()">
+                            <option value="de">Deutsch</option>
+                            <option value="en">Englisch</option>
+                            <option value="fr">Französisch</option>
+                            <option value="es">Spanisch</option>
+                            <option value="it">Italienisch</option>
+                            <option value="pt">Portugiesisch</option>
+                            <option value="nl">Niederländisch</option>
+                            <option value="sv">Schwedisch</option>
+                            <option value="no">Norwegisch</option>
+                            <option value="da">Dänisch</option>
+                            <option value="fi">Finnisch</option>
+                            <option value="pl">Polnisch</option>
+                            <option value="cs">Tschechisch</option>
+                            <option value="sk">Slowakisch</option>
+                            <option value="hu">Ungarisch</option>
+                            <option value="ro">Rumänisch</option>
+                            <option value="bg">Bulgarisch</option>
+                            <option value="hr">Kroatisch</option>
+                            <option value="sr">Serbisch</option>
+                            <option value="sl">Slowenisch</option>
+                            <option value="et">Estnisch</option>
+                            <option value="lv">Lettisch</option>
+                            <option value="lt">Litauisch</option>
+                            <option value="el">Griechisch</option>
+                            <option value="zh-CN">Chinesisch (vereinfacht)</option>
+                        </select><br><br>
 
-        <div class="footer">
-            <script src="js/footer.js"></script>
+                        <textarea class="eingabe" type="text" id="input_text" name="input_text"
+                            onkeypress="handleEnterTranslator(event)"></textarea>
+                        <br><br>
+                    </div>
 
-            <a href="impressum.index">Impressum</a>
-            <a href="datenschutz.index">Datenschutzerklärung</a>
+                    <div class="outputContainer">
+                        <label for="target_lang">Zielsprache:</label>
+                        <select id="target_lang" class="button" onchange="setPlaceholder(), uebersetze()">
+                            <option value="en">Englisch</option>
+                            <option value="de">Deutsch</option>
+                            <option value="fr">Französisch</option>
+                            <option value="es">Spanisch</option>
+                            <option value="it">Italienisch</option>
+                            <option value="pt">Portugiesisch</option>
+                            <option value="nl">Niederländisch</option>
+                            <option value="sv">Schwedisch</option>
+                            <option value="no">Norwegisch</option>
+                            <option value="da">Dänisch</option>
+                            <option value="fi">Finnisch</option>
+                            <option value="pl">Polnisch</option>
+                            <option value="cs">Tschechisch</option>
+                            <option value="sk">Slowakisch</option>
+                            <option value="hu">Ungarisch</option>
+                            <option value="ro">Rumänisch</option>
+                            <option value="bg">Bulgarisch</option>
+                            <option value="hr">Kroatisch</option>
+                            <option value="sr">Serbisch</option>
+                            <option value="sl">Slowenisch</option>
+                            <option value="et">Estnisch</option>
+                            <option value="lv">Lettisch</option>
+                            <option value="lt">Litauisch</option>
+                            <option value="el">Griechisch</option>
+                            <option value="zh-CN">Chinesisch (vereinfacht)</option>
+                        </select><br><br>
+                        <textarea class="eingabe" type="text" id="output_text" name="output_text"></textarea>
+                    </div>
+                </div>
+            </div>
+
+            <div class="toolSmall" id="einheiten">
+                <script src="js/einheiten.js"></script>
+                <h1 style="font-size: 20px;">Einheiten Umrechner</h1>
+                <label for="select1">Einheitentyp:</label>
+                <select class="button" id="select1" onchange="selectChange()">
+                    <option value="choose" selected>Wählen</option>
+                    <option value="length">Länge</option>
+                    <option value="time">Zeit</option>
+                    <option value="velocity">Geschwindigkeit</option>
+                    <option value="area">Fläche</option>
+                    <option value="energy">Energie</option>
+                    <option value="mass">Masse</option>
+                    <option value="temperature">Temperatur</option>
+                    <option value="volume">Volumen</option>
+                    <option value="power">Leistung</option>
+                </select>
+                <br><br>
+                <label for="select2">Ausgangseinheit:</label>
+                <select class="button" id="select2" onchange="convert()">
+                </select>
+                <br><br>
+                <label for="input">Eingabe:</label>
+                <input type="number" id="input" onchange="convert()">
+                <br><br>
+                <label for="result">Ergebnis:</label>
+                <input type="text" id="result" disabled>
+                <button onclick="copyToClipboard()">Kopieren</button>
+                <br><br>
+                <label for="select3">Zieleinheit:</label>
+                <select class="button" id="select3" onchange="convert()">
+                </select>
+                <br><br>
+                <button class="button-small" onclick="swapUnits()">Einheiten tauschen</button>
+            </div>
+
+            <div class="footer">
+                <script src="js/footer.js"></script>
+
+                <a href="impressum.index">Impressum</a>
+                <a href="datenschutz.index">Datenschutzerklärung</a>
+            </div>
         </div>
+    </div>
 
 
 
