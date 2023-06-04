@@ -1,5 +1,3 @@
-
-
 function updateClock() {
     var currentDate = new Date();
     var hours = currentDate.getHours();
@@ -78,6 +76,66 @@ function showStopwatch() {
     document.getElementById("headingTimer").style.borderBottom = "0";
 }
 
+//Popup draggable
+
+let isDragging = false;
+        let initialX;
+        let initialY;
+        let offsetX = 0;
+        let offsetY = 0;
+
+        function startDragging(event) {
+          isDragging = true;
+
+          if (event.type === 'mousedown') {
+            initialX = event.clientX - offsetX;
+            initialY = event.clientY - offsetY;
+
+            document.addEventListener('mousemove', drag);
+            document.addEventListener('mouseup', stopDragging);
+          } else if (event.type === 'touchstart') {
+            initialX = event.touches[0].clientX - offsetX;
+            initialY = event.touches[0].clientY - offsetY;
+
+            document.addEventListener('touchmove', drag);
+            document.addEventListener('touchend', stopDragging);
+          }
+
+          document.body.style.overflow = 'hidden'; // Deaktiviert das Scrollen der Seite
+        }
+
+        function drag(event) {
+          if (!isDragging) return;
+
+          event.preventDefault();
+
+          if (event.type === 'mousemove') {
+            offsetX = event.clientX - initialX;
+            offsetY = event.clientY - initialY;
+          } else if (event.type === 'touchmove') {
+            offsetX = event.touches[0].clientX - initialX;
+            offsetY = event.touches[0].clientY - initialY;
+          }
+
+          const popup = document.getElementById('ClockPopup');
+          popup.style.transform = `translate(${offsetX}px, ${offsetY}px)`;
+        }
+
+        function stopDragging() {
+          isDragging = false;
+
+          document.removeEventListener('mousemove', drag);
+          document.removeEventListener('mouseup', stopDragging);
+          document.removeEventListener('touchmove', drag);
+          document.removeEventListener('touchend', stopDragging);
+
+          document.body.style.overflow = ''; // Aktiviert das Scrollen der Seite wieder
+        }
+
+        function openPopup() {
+          const popup = document.getElementById('ClockPopup');
+          popup.style.display = 'block';
+        }
 
 //Alles zur Stoppuhr
 
@@ -99,6 +157,7 @@ function resetStopwatch() {
     elapsedTime = 0;
     startTime = Date.now();
     updateStopwatch();
+    document.getElementById("stopwatchList").innerHTML = "";
 }
 
 function recordTime() {
@@ -190,11 +249,13 @@ function startTimer() {
     if (remainingTime <= 0) return;
 
     hideInputMenu();
+    updateTimerDisplay();
 
     clearInterval(timerInterval);
     timerInterval = setInterval(function () {
         if (remainingTime <= 0) {
             clearInterval(timerInterval);
+            playRingtone();
             return;
         }
 
@@ -204,6 +265,7 @@ function startTimer() {
 
     isPaused = false;
 }
+
 
 function pauseTimer() {
     clearInterval(timerInterval);
@@ -217,6 +279,7 @@ function resetTimer() {
     pausedTime = 0;
     isPaused = false;
     updateTimerDisplay();
+    audio.pause();
 }
 
 function updateTimerDisplay() {
@@ -285,3 +348,8 @@ if (pausedTime > 0) {
     isPaused = true;
     updateTimerDisplay();
 }
+
+var audio = new Audio('data/ringtone.mp3'); // Passe den Pfad zur Klingeltondatei an
+  function playRingtone() {
+    audio.play();
+  }

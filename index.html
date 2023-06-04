@@ -26,57 +26,56 @@
 <body>
   <script src="js/settings.js"></script>
 
-  <div id="settings">
-    <button onclick="settingsInvisible()"><i class="fa-solid fa-xmark"></i></button>
-    <br>
-    <input type="checkbox" id="translatorCheckbox" onchange="toggleVisibility('translator')" checked>
-    <label for="translatorCheckbox">Übersetzer</label>
-    <br>
-    <input type="checkbox" id="clockCheckbox" onchange="toggleVisibility('clock')" checked>
-    <label for="clockCheckbox">Uhr</label>
-    <br>
-    <input type="checkbox" id="einheitenCheckbox" onchange="toggleVisibility('einheiten')" checked>
-    <label for="einheitenCheckbox">Einheiten Umrechner</label>
-    <br>
-    <input type="checkbox" id="calculatorCheckbox" onchange="toggleVisibility('calculator')" checked>
-    <label for="calculatorCheckbox">Taschenrechner</label>
-    <br>
-    <input type="checkbox" id="dateCalculatorCheckbox" onchange="toggleVisibility('dateCalculator')" checked>
-    <label for="dateCalculatorCheckbox">Datum Rechner</label>
-    <br>
-    <input type="checkbox" id="shortenerCheckbox" onchange="toggleVisibility('shortener')" checked>
-    <label for="shortenerCheckbox">Link Shortener</label>
-    <br>
-    <input type="checkbox" id="linksCheckbox" onchange="toggleVisibility('links')" checked>
-    <label for="linksCheckbox">Links speichern</label>
-    <br>
-    <input class="button-small" type="file" id="bgImageInput">
-    <button class="button-small" onclick="setBackground()">Hintergrund festlegen</button>
-    <button class="button-small" onclick="resetBackground()">Hintergrund zurücksetzen</button>
+  <div id="settings" class="settings">
+
+    <div class="settingsNav">
+      <h1 style="text-align: center;">Settings</h1>
+      <button class="button" onclick="toggleSettingVisibility('tools')">Tools</button>
+      <button class="button" onclick="toggleSettingVisibility('background')">Background</button>
+    </div>
+
+    <div class="settingsContent">
+      <button style="float: right; color: white; background-color: black;" class="button" onclick="settingsInvisible()">
+        <i class="fa-solid fa-xmark fa-xl"></i></button>
+      <div class="oneSetting" id="toolsSettings" style="display: none;">
+        <h1>Settings für Tools</h1>
+        <br>
+        <input type="checkbox" id="translatorCheckbox" onchange="toggleVisibility('translator')" checked>
+        <label for="translatorCheckbox">Übersetzer</label>
+        <br>
+        <input type="checkbox" id="clockCheckbox" onchange="toggleVisibility('clock')" checked>
+        <label for="clockCheckbox">Uhr</label>
+        <br>
+        <input type="checkbox" id="einheitenCheckbox" onchange="toggleVisibility('einheiten')" checked>
+        <label for="einheitenCheckbox">Einheiten Umrechner</label>
+        <br>
+        <input type="checkbox" id="calculatorCheckbox" onchange="toggleVisibility('calculator')" checked>
+        <label for="calculatorCheckbox">Taschenrechner</label>
+        <br>
+        <input type="checkbox" id="dateCalculatorCheckbox" onchange="toggleVisibility('dateCalculator')" checked>
+        <label for="dateCalculatorCheckbox">Datum Rechner</label>
+      </div>
+      <div class="oneSetting" id="backgroundSettings" style="display: none;">
+        <h1>Settings für Background</h1>
+        <input type="file" id="imageInput" accept="image/*">
+        <button onclick="setBackground()">Als Hintergrund festlegen</button>
+        <button onclick="resetBackground()">Reset</button>
+      </div>
+    </div>
   </div>
 
   <div class="container">
     <div class="navbar">
       <button class="scrollLink" onclick="scrollUp()">Suche</button>
       <a class="scrollLink" href="#clock" id="time" class="clock">Uhr: 00:00:00</a>
-      <a class="scrollLink" href="#uhrCanvas" id="date" class="clock">Kalender 00.00.0000</a>
+      <a class="scrollLink" href="#dateCalculator" id="date" class="clock">Date 00.00.0000</a>
       <a class="scrollLink" href="#einheiten">Einheiten umrechnen</a>
       <a class="scrollLink" href="#calculator">Taschenrechner</a>
-      <a class="scrollLink" href="#dateCalculator">Datum Rechner</a>
       <a class="scrollLink" href="#translator">Übersetzer</a>
-      <a class="scrollLink" href="#links">Wichtige Links</a>
-      <button class="scrollLink" onclick="settingsVisibe()"><i class="fa-solid fa-gear"></i></button>
-      </ul>
+      <button class="scrollLink" onclick="settingsVisible()">Einstellungen</button>
     </div>
     <div class="menu-icon">&#9776;</div>
-    <script>
-      const menuIcon = document.querySelector('.menu-icon');
-      const navbar = document.querySelector('.navbar');
 
-      menuIcon.addEventListener('click', () => {
-        navbar.classList.toggle('active');
-      });
-    </script>
     <div class="toolsContainer">
       <div class="topBar">
         <script src="js/searchBar.js"></script>
@@ -96,8 +95,42 @@
             <div class="second-hand"></div>
           </div>
         </button>
-
         <script src="js/uhr.js"></script>
+      </div>
+
+      <div class="toolSmall" id="einheiten">
+        <script src="js/einheiten.js"></script>
+        <h1>Einheiten Umrechner</h1>
+        <label for="select1">Einheitentyp:</label>
+        <select class="button" id="select1" onchange="selectChange()">
+          <option value="choose" selected>Wählen</option>
+          <option value="length">Länge</option>
+          <option value="time">Zeit</option>
+          <option value="velocity">Geschwindigkeit</option>
+          <option value="area">Fläche</option>
+          <option value="energy">Energie</option>
+          <option value="mass">Masse</option>
+          <option value="temperature">Temperatur</option>
+          <option value="volume">Volumen</option>
+          <option value="power">Leistung</option>
+        </select>
+        <br><br>
+        <label for="select2">Ausgangseinheit:</label>
+        <select class="button" id="select2" onchange="convert()">
+        </select>
+        <br><br>
+        <label for="input">Eingabe:</label>
+        <input style="min-height: 20px;" type="number" id="input" onchange="convert()">
+        <br><br>
+        <label for="result">Ergebnis:</label>
+        <input type="text" id="result" disabled>
+        <button onclick="copyToClipboard()">Kopieren</button>
+        <br><br>
+        <label for="select3">Zieleinheit:</label>
+        <select class="button" id="select3" onchange="convert()">
+        </select>
+        <br><br>
+        <button class="button-small" onclick="swapUnits()">Einheiten tauschen</button>
       </div>
 
       <div id="ClockPopup" class="draggable">
@@ -115,9 +148,9 @@
           <br><br>
           <div id="stopwatchSection">
             <div id="stopwatch">00:00:000</div>
-            <button class="button" onclick="startStopwatch()">Start</button>
-            <button class="button" onclick="pauseStopwatch()">Pause</button>
-            <button class="button" onclick="resetStopwatch()">Reset</button>
+            <button class="button" onclick="startStopwatch()"><i class="fa-solid fa-play"></i></button>
+            <button class="button" onclick="pauseStopwatch()"><i class="fa-solid fa-pause"></i></button>
+            <button class="button" onclick="resetStopwatch()"><i class="fa-solid fa-trash"></i></button>
             <button class="button" onclick="recordTime()">Runde</button>
             <ol id="stopwatchList"></ol>
           </div>
@@ -134,76 +167,16 @@
               <input type="text" class="input-field" id="seconds-input" maxlength="2" placeholder="SS"
                 oninput="checkInput(this, 'hours-input')">
               <br>
-              <button class="button" onclick="startTimer()">Start</button>
-              <button class="button" onclick="hideInputMenu()">Abbrechen</button>
+              <button class="button" onclick="startTimer()"><i class="fa-solid fa-play"></i></button>
+              <button class="button" onclick="hideInputMenu()"><i class="fa-solid fa-xmark"></i></button>
             </div>
-            <button class="button" onclick="startTimer()" id="start-button">Start</button>
-            <button class="button" onclick="pauseTimer()" id="pause-button">Pause</button>
-            <button class="button" onclick="resetTimer()" id="reset-button">Reset</button>
+            <button class="button" onclick="startTimer()" id="start-button"><i class="fa-solid fa-play"></i></button>
+            <button class="button" onclick="pauseTimer()" id="pause-button"><i class="fa-solid fa-pause"></i></button>
+            <button class="button" onclick="resetTimer()" id="reset-button"><i class="fa-solid fa-trash"></i></button>
           </div>
 
         </div>
       </div>
-
-
-      <script>
-        let isDragging = false;
-        let initialX;
-        let initialY;
-        let offsetX = 0;
-        let offsetY = 0;
-
-        function startDragging(event) {
-          isDragging = true;
-
-          if (event.type === 'mousedown') {
-            initialX = event.clientX - offsetX;
-            initialY = event.clientY - offsetY;
-
-            document.addEventListener('mousemove', drag);
-            document.addEventListener('mouseup', stopDragging);
-          } else if (event.type === 'touchstart') {
-            initialX = event.touches[0].clientX - offsetX;
-            initialY = event.touches[0].clientY - offsetY;
-
-            document.addEventListener('touchmove', drag);
-            document.addEventListener('touchend', stopDragging);
-          }
-        }
-
-        function drag(event) {
-          if (!isDragging) return;
-
-          event.preventDefault();
-
-          if (event.type === 'mousemove') {
-            offsetX = event.clientX - initialX;
-            offsetY = event.clientY - initialY;
-          } else if (event.type === 'touchmove') {
-            offsetX = event.touches[0].clientX - initialX;
-            offsetY = event.touches[0].clientY - initialY;
-          }
-
-          const popup = document.getElementById('ClockPopup');
-          popup.style.transform = `translate(${offsetX}px, ${offsetY}px)`;
-        }
-
-        function stopDragging() {
-          isDragging = false;
-
-          document.removeEventListener('mousemove', drag);
-          document.removeEventListener('mouseup', stopDragging);
-          document.removeEventListener('touchmove', drag);
-          document.removeEventListener('touchend', stopDragging);
-        }
-
-        function openPopup() {
-          const popup = document.getElementById('ClockPopup');
-          popup.style.display = 'block';
-        }
-      </script>
-
-
 
       <div class="toolBig" id="translator">
         <script src="js/translator.js"></script>
@@ -277,41 +250,6 @@
         </div>
       </div>
 
-      <div class="toolSmall" id="einheiten">
-        <script src="js/einheiten.js"></script>
-        <h1 style="font-size: 20px;">Einheiten Umrechner</h1>
-        <label for="select1">Einheitentyp:</label>
-        <select class="button" id="select1" onchange="selectChange()">
-          <option value="choose" selected>Wählen</option>
-          <option value="length">Länge</option>
-          <option value="time">Zeit</option>
-          <option value="velocity">Geschwindigkeit</option>
-          <option value="area">Fläche</option>
-          <option value="energy">Energie</option>
-          <option value="mass">Masse</option>
-          <option value="temperature">Temperatur</option>
-          <option value="volume">Volumen</option>
-          <option value="power">Leistung</option>
-        </select>
-        <br><br>
-        <label for="select2">Ausgangseinheit:</label>
-        <select class="button" id="select2" onchange="convert()">
-        </select>
-        <br><br>
-        <label for="input">Eingabe:</label>
-        <input type="number" id="input" onchange="convert()">
-        <br><br>
-        <label for="result">Ergebnis:</label>
-        <input type="text" id="result" disabled>
-        <button onclick="copyToClipboard()">Kopieren</button>
-        <br><br>
-        <label for="select3">Zieleinheit:</label>
-        <select class="button" id="select3" onchange="convert()">
-        </select>
-        <br><br>
-        <button class="button-small" onclick="swapUnits()">Einheiten tauschen</button>
-      </div>
-
       <div class="toolSmall" id="calculator">
         <form>
           <input class="result-bar" type="text" id="equation" name="equation"
@@ -372,7 +310,6 @@
         </select>
         <br><br>
         <div id="datum-rechner">
-          <h2>Datum-Rechner</h2>
           <form>
             <label for="startdatum">Startdatum:</label>
             <input type="date" id="startdatum" name="startdatum">
@@ -385,7 +322,6 @@
         </div>
 
         <div id="zeit-rechner">
-          <h2>Zeit-Rechner</h2>
           <form>
             <label for="startzeit">Startzeit:</label>
             <input type="time" id="startzeit" name="startzeit">
@@ -398,7 +334,6 @@
         </div>
 
         <div id="datumzeit-rechner">
-          <h2>Datum/Zeit-Rechner</h2>
           <form>
             <label for="startdatumzeit">Startdatum und -zeit:</label>
             <input type="datetime-local" id="startdatumzeit" name="startdatumzeit">
@@ -413,13 +348,15 @@
         <script src="js/timeDifference.js"></script>
 
       </div>
-
-      <div class="toolSmall" id="shortener">
+      <!--
+  <div class="toolSmall" id="shortener">
         <h1>URL Shortener</h1>
         <input type="text" id="input" placeholder="Gib einen Link ein">
         <button onclick="shortenUrl()">Verkürzen</button>
         <p id="output"></p>
       </div>
+-->
+
 
       <div class="footer">
         <script src="js/footer.js"></script>
