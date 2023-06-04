@@ -3,8 +3,7 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 function setDropdownValue() {
-  document.getElementById("rechner").selectedIndex = "0";
-  document.getElementById("datum-rechner").style.display = "none";
+  document.getElementById("datum-rechner").style.display = "0";
   document.getElementById("zeit-rechner").style.display = "none";
   document.getElementById("datumzeit-rechner").style.display = "none";
 
@@ -14,4 +13,9 @@ function setDropdownValue() {
   setPlaceholder();
 }
 
+// Beim Klicken auf den Button wird zum Anfang der Seite gescrollt
+function scrollUp() {
+  document.body.scrollTop = 0; // Für Safari
+  document.documentElement.scrollTop = 0; // Für Chrome, Firefox, IE und Opera
+}
 

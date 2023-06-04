@@ -1,299 +1,287 @@
-// Beim Klicken auf den Button wird zum Anfang der Seite gescrollt
-function scrollUp() {
-  document.body.scrollTop = 0; // Für Safari
-  document.documentElement.scrollTop = 0; // Für Chrome, Firefox, IE und Opera
-}
 
-function drawClock() {
-  var canvas = document.getElementById("uhrCanvas");
-  var ctx = canvas.getContext("2d");
-  var radius = canvas.height / 2;
-  ctx.translate(radius, radius);
-  radius = radius * 0.9;
-  setInterval(drawTime, 1000);
-
-  function drawTime() {
-    ctx.clearRect(-canvas.width / 2, -canvas.height / 2, canvas.width, canvas.height);
-    drawFace(ctx, radius);
-    drawNumbers(ctx, radius);
-    drawTicks(ctx, radius);
-    drawTimeHands(ctx, radius);
-  }
-
-  function drawFace(ctx, radius) {
-    ctx.beginPath();
-    ctx.arc(0, 0, radius, 0, 2 * Math.PI);
-    ctx.fillStyle = "white";
-    ctx.fill();
-    ctx.lineWidth = radius * 0.1;
-    ctx.strokeStyle = "black";
-    ctx.stroke();
-    ctx.closePath();
-  }
-
-  function drawNumbers(ctx, radius) {
-    var ang;
-    var num;
-    ctx.font = radius * 0.15 + "px Arial";
-    ctx.textBaseline = "middle";
-    ctx.textAlign = "center";
-    for (num = 1; num <= 12; num++) {
-      ang = num * Math.PI / 6;
-      ctx.rotate(ang);
-      ctx.translate(0, -radius * 0.85);
-      ctx.rotate(-ang);
-      ctx.fillText(num.toString(), 0, 0);
-      ctx.rotate(ang);
-      ctx.translate(0, radius * 0.85);
-      ctx.rotate(-ang);
-    }
-  }
-
-  function drawTicks(ctx, radius) {
-    var ang;
-    ctx.lineWidth = radius * 0.01;
-    ctx.strokeStyle = "black";
-    for (var i = 0; i < 60; i++) {
-      ang = i * Math.PI / 30;
-      ctx.beginPath();
-      ctx.moveTo(radius * 0.92 * Math.sin(ang), -radius * 0.92 * Math.cos(ang));
-      ctx.lineTo(radius * 0.96 * Math.sin(ang), -radius * 0.96 * Math.cos(ang));
-      ctx.stroke();
-    }
-  }
-
-  function drawTimeHands(ctx, radius) {
-    var now = new Date();
-    var hour = now.getHours();
-    var minute = now.getMinutes();
-    var second = now.getSeconds();
-    // Stunde
-    hour = hour % 12;
-    hour = (hour * Math.PI / 6) + (minute * Math.PI / (6 * 60)) + (second * Math.PI / (360 * 60));
-    drawHand(ctx, hour, radius * 0.5, radius * 0.07);
-    // Minute
-    minute = (minute * Math.PI / 30) + (second * Math.PI / (30 * 60));
-    drawHand(ctx, minute, radius * 0.8, radius * 0.07);
-    // Sekunde
-    second = (second * Math.PI / 30);
-    drawHand(ctx, second, radius * 0.9, radius * 0.02, "red");
-  }
-
-  function drawHand(ctx, pos, length, width, color) {
-    ctx.beginPath();
-    ctx.lineWidth = width;
-    ctx.lineCap = "round";
-    ctx.moveTo(0, 0);
-    ctx.rotate(pos);
-    ctx.lineTo(0, -length);
-    if (color) {
-      ctx.strokeStyle = color;
-    } else {
-      ctx.strokeStyle = "black";
-    }
-    ctx.stroke();
-    ctx.rotate(-pos);
-  }
-}
-
-// Start der Uhr
-drawClock();
 
 function updateClock() {
-  var currentDate = new Date();
-  var hours = currentDate.getHours();
-  var minutes = currentDate.getMinutes();
-  var seconds = currentDate.getSeconds();
-  var day = currentDate.getDate();
-  var month = currentDate.getMonth() + 1; // Monate sind nullbasiert, daher +1
-  var year = currentDate.getFullYear();
+    var currentDate = new Date();
+    var hours = currentDate.getHours();
+    var minutes = currentDate.getMinutes();
+    var seconds = currentDate.getSeconds();
+    var day = currentDate.getDate();
+    var month = currentDate.getMonth() + 1; // Monate sind nullbasiert, daher +1
+    var year = currentDate.getFullYear();
 
-  // Führende Nullen hinzufügen
-  hours = (hours < 10 ? "0" : "") + hours;
-  minutes = (minutes < 10 ? "0" : "") + minutes;
-  seconds = (seconds < 10 ? "0" : "") + seconds;
-  day = (day < 10 ? "0" : "") + day;
-  month = (month < 10 ? "0" : "") + month;
+    // Führende Nullen hinzufügen
+    hours = (hours < 10 ? "0" : "") + hours;
+    minutes = (minutes < 10 ? "0" : "") + minutes;
+    seconds = (seconds < 10 ? "0" : "") + seconds;
+    day = (day < 10 ? "0" : "") + day;
+    month = (month < 10 ? "0" : "") + month;
 
-  // Uhrzeit und Datum anzeigen
-  var timeElement = document.getElementById("time");
-  timeElement.textContent = "Uhr: " + hours + ":" + minutes + ":" + seconds;
+    // Uhrzeit und Datum anzeigen
+    var timeElement = document.getElementById("time");
+    timeElement.textContent = "Uhr: " + hours + ":" + minutes + ":" + seconds;
 
-  var dateElement = document.getElementById("date");
-  dateElement.textContent = "Kalender " + day + "." + month + "." + year;
+    var dateElement = document.getElementById("date");
+    dateElement.textContent = "Kalender " + day + "." + month + "." + year;
 }
 
-// Die Uhr aktualisieren alle 1 Sekunde
 setInterval(updateClock, 1000);
 
+function rotateClockHands() {
+    var now = new Date();
+    var hours = now.getHours();
+    var minutes = now.getMinutes();
+    var seconds = now.getSeconds();
+
+    var hourRotation = (hours % 12) * 30 + (minutes / 2); // Jede Stunde entspricht 30 Grad, jede Minute entspricht 0.5 Grad
+    var minuteRotation = (minutes * 6) + (seconds / 10); // Jede Minute entspricht 6 Grad, jede Sekunde entspricht 0.1 Grad
+    var secondRotation = seconds * 6; // Jede Sekunde entspricht 6 Grad
+
+    var hourHand = document.querySelector('.hour-hand');
+    var minuteHand = document.querySelector('.minute-hand');
+    var secondHand = document.querySelector('.second-hand');
+
+    hourHand.style.transform = 'translateX(-50%) rotate(' + hourRotation + 'deg)';
+    minuteHand.style.transform = 'translateX(-50%) rotate(' + minuteRotation + 'deg)';
+    secondHand.style.transform = 'translateX(-50%) rotate(' + secondRotation + 'deg)';
+}
+
+setInterval(rotateClockHands, 1000); // Aktualisiere die Zeiger alle 1000 Millisekunden (1 Sekunde)
 
 
-
-
-// Uhr Popup mit Timer und Stoppuhr
-var popup = document.getElementById("popup");
-var header = document.getElementById("header");
-var openButton = document.getElementById("openButton");
-var isDragging = false;
-var mouseOffsetX = 0;
-var mouseOffsetY = 0;
-
-openButton.addEventListener("click", openPopup);
-header.addEventListener("mousedown", startDragging);
-document.addEventListener("mousemove", dragPopup);
-document.addEventListener("mouseup", stopDragging);
+//Ab hier alles zum Uhr-Popup
 
 function openPopup() {
-  popup.style.display = "block";
+    var popup = document.getElementById("ClockPopup");
+    popup.style.display = "block";
 }
 
 function closePopup() {
-  popup.style.display = "none";
+    var popup = document.getElementById("ClockPopup");
+    popup.style.display = "none";
 }
-
-function startDragging(event) {
-  isDragging = true;
-  mouseOffsetX = event.clientX - popup.offsetLeft;
-  mouseOffsetY = event.clientY - popup.offsetTop;
-}
-
-function dragPopup(event) {
-  if (isDragging) {
-    event.preventDefault();
-    var posX = event.clientX - mouseOffsetX;
-    var posY = event.clientY - mouseOffsetY;
-    popup.style.left = posX + "px";
-    popup.style.top = posY + "px";
-  }
-}
-
-function stopDragging() {
-  isDragging = false;
-}
-
 
 function showTimer() {
-  document.getElementById("timerSection").style.display = "block";
-  document.getElementById("stopwatchSection").style.display = "none";
-  document.getElementById("headingTimer").style.color = "black";
-  document.getElementById("headingStopwatch").style.color = "#444444";
-  document.getElementById("headingTimer").style.borderBottom = "2px solid blue";
-  document.getElementById("headingStopwatch").style.borderBottom = "0";
+    document.getElementById("timerSection").style.display = "block";
+    document.getElementById("stopwatchSection").style.display = "none";
+    document.getElementById("headingTimer").style.color = "black";
+    document.getElementById("headingStopwatch").style.color = "#444444";
+    document.getElementById("headingTimer").style.borderBottom = "2px solid blue";
+    document.getElementById("headingStopwatch").style.borderBottom = "0";
 }
 
 function showStopwatch() {
-  document.getElementById("stopwatchSection").style.display = "block";
-  document.getElementById("timerSection").style.display = "none";
-  document.getElementById("headingTimer").style.color = "#444444";
-  document.getElementById("headingStopwatch").style.color = "black";
-  document.getElementById("headingStopwatch").style.borderBottom = "2px solid blue";
-  document.getElementById("headingTimer").style.borderBottom = "0";
+    document.getElementById("stopwatchSection").style.display = "block";
+    document.getElementById("timerSection").style.display = "none";
+    document.getElementById("headingTimer").style.color = "#444444";
+    document.getElementById("headingStopwatch").style.color = "black";
+    document.getElementById("headingStopwatch").style.borderBottom = "2px solid blue";
+    document.getElementById("headingTimer").style.borderBottom = "0";
 }
 
-//Timer
-var interval;
-var totalSeconds;
-var isPaused = false;
 
-function jumpToNext(input, nextInput) {
-  if (input.value.length >= input.maxLength) {
-    nextInput.focus();
-  }
-}
-
-function startTimer() {
-  var hoursInput = document.getElementById("hours");
-  var minutesInput = document.getElementById("minutes");
-  var secondsInput = document.getElementById("seconds");
-
-  var hours = hoursInput.value ? parseInt(hoursInput.value) : 0;
-  var minutes = minutesInput.value ? parseInt(minutesInput.value) : 0;
-  var seconds = secondsInput.value ? parseInt(secondsInput.value) : 0;
-
-  totalSeconds = hours * 3600 + minutes * 60 + seconds;
-
-  var display = document.getElementById("timer");
-
-  interval = setInterval(function () {
-    if (!isPaused) {
-      hours = Math.floor(totalSeconds / 3600);
-      minutes = Math.floor((totalSeconds % 3600) / 60);
-      seconds = totalSeconds % 60;
-
-      display.textContent = (hours < 10 ? "0" + hours : hours) + ":" +
-        (minutes < 10 ? "0" + minutes : minutes) + ":" +
-        (seconds < 10 ? "0" + seconds : seconds);
-
-      if (totalSeconds <= 0) {
-        clearInterval(interval);
-        playRingtone();
-      } else {
-        totalSeconds--;
-      }
-    }
-  }, 1000);
-}
-
-function pauseTimer() {
-  isPaused = !isPaused;
-}
-
-function resetTimer() {
-  clearInterval(interval);
-  var display = document.getElementById("timer");
-  display.textContent = "00:00:00";
-  isPaused = false;
-  totalSeconds = 0;
-  var hours = document.getElementById("hours");
-  hours.value = "";
-  var minutes = document.getElementById("minutes");
-  minutes.value = "";
-  var seconds = document.getElementById("seconds");
-  seconds.value = "";
-  audio.pause();
-}
-var audio = new Audio('ringtone.mp3'); // Passe den Pfad zur Klingeltondatei an
-function playRingtone() {
-  audio.play();
-}
-
-//Stoppuhr
+//Alles zur Stoppuhr
 
 var startTime;
 var elapsedTime = 0;
-var timerInterval;
+var stopwatchInterval;
 
 function startStopwatch() {
-  startTime = Date.now() - elapsedTime;
-  timerInterval = setInterval(updateTime, 1);
-  document.getElementById("startButtonStopwatch").style.display = "none";
-  document.getElementById("stopButtonStopwatch").style.display = "inline";
+    startTime = Date.now() - elapsedTime;
+    stopwatchInterval = setInterval(updateStopwatch, 10);
 }
 
-function stopStopwatch() {
-  clearInterval(timerInterval);
-  document.getElementById("startButtonStopwatch").style.display = "inline";
-  document.getElementById("stopButtonStopwatch").style.display = "none";
+function pauseStopwatch() {
+    clearInterval(stopwatchInterval);
 }
 
 function resetStopwatch() {
-  clearInterval(timerInterval);
-  elapsedTime = 0;
-  document.getElementById("display").textContent = "00:00:000";
-  document.getElementById("startButtonStopwatch").style.display = "inline";
-  document.getElementById("stopButtonStopwatch").style.display = "none";
+    clearInterval(stopwatchInterval);
+    elapsedTime = 0;
+    startTime = Date.now();
+    updateStopwatch();
 }
 
-function updateTime() {
-  var currentTime = Date.now();
-  elapsedTime = currentTime - startTime;
-  var minutes = Math.floor(elapsedTime / 60000);
-  var seconds = Math.floor((elapsedTime % 60000) / 1000);
-  var milliseconds = elapsedTime % 1000;
-  milliseconds = milliseconds.toString().padStart(3, "0");
-  seconds = seconds.toString().padStart(2, "0");
-  minutes = minutes.toString().padStart(2, "0");
-  document.getElementById("display").textContent =
-    minutes + ":" + seconds + ":" + milliseconds;
+function recordTime() {
+    var currentTime = formatTime(elapsedTime);
+    var listItem = document.createElement("li");
+    listItem.innerText = currentTime;
+    document.getElementById("stopwatchList").appendChild(listItem);
 }
 
+function updateStopwatch() {
+    var currentTime = Date.now() - startTime;
+    elapsedTime = currentTime;
+    var formattedTime = formatTime(currentTime);
+    document.getElementById("stopwatch").innerText = formattedTime;
+}
+
+function formatTime(time) {
+    var minutes = Math.floor((time / 1000 / 60) % 60);
+    var seconds = Math.floor((time / 1000) % 60);
+    var milliseconds = Math.floor(time % 1000);
+    return (
+        padNumber(minutes) + ":" + padNumber(seconds) + ":" + padNumber(milliseconds, 3)
+    );
+}
+
+function padNumber(number, length = 2) {
+    return number.toString().padStart(length, "0");
+}
+
+
+//Alles zum Timer
+
+var timerInterval;
+var hoursInput;
+var minutesInput;
+var secondsInput;
+var remainingTime = 0;
+var pausedTime = 0;
+var isPaused = false;
+
+function showInputMenu() {
+    var timerDisplay = document.getElementById("timer-display");
+    var inputMenu = document.getElementById("input-menu");
+    var startButton = document.getElementById("start-button");
+    var pauseButton = document.getElementById("pause-button");
+    var resetButton = document.getElementById("reset-button");
+
+    timerDisplay.style.display = "none";
+    inputMenu.style.display = "block";
+    startButton.style.display = "none";
+    pauseButton.style.display = "none";
+    resetButton.style.display = "none";
+
+    hoursInput = document.getElementById("hours-input");
+    minutesInput = document.getElementById("minutes-input");
+    secondsInput = document.getElementById("seconds-input");
+
+    hoursInput.value = "";
+    minutesInput.value = "";
+    secondsInput.value = "";
+
+    hoursInput.focus();
+}
+
+function hideInputMenu() {
+    var timerDisplay = document.getElementById("timer-display");
+    var inputMenu = document.getElementById("input-menu");
+    var startButton = document.getElementById("start-button");
+    var pauseButton = document.getElementById("pause-button");
+    var resetButton = document.getElementById("reset-button");
+
+    timerDisplay.style.display = "block";
+    inputMenu.style.display = "none";
+    startButton.style.display = "inline-block";
+    pauseButton.style.display = "inline-block";
+    resetButton.style.display = "inline-block";
+}
+
+
+function startTimer() {
+    if (!isPaused) {
+        var hours = parseInt(hoursInput.value) || 0;
+        var minutes = parseInt(minutesInput.value) || 0;
+        var seconds = parseInt(secondsInput.value) || 0;
+
+        remainingTime = (hours * 3600 + minutes * 60 + seconds) || remainingTime;
+    }
+
+    if (remainingTime <= 0) return;
+
+    hideInputMenu();
+
+    clearInterval(timerInterval);
+    timerInterval = setInterval(function () {
+        if (remainingTime <= 0) {
+            clearInterval(timerInterval);
+            return;
+        }
+
+        remainingTime--;
+        updateTimerDisplay();
+    }, 1000);
+
+    isPaused = false;
+}
+
+function pauseTimer() {
+    clearInterval(timerInterval);
+    pausedTime = remainingTime;
+    isPaused = true;
+}
+
+function resetTimer() {
+    clearInterval(timerInterval);
+    remainingTime = 0;
+    pausedTime = 0;
+    isPaused = false;
+    updateTimerDisplay();
+}
+
+function updateTimerDisplay() {
+    var timerDisplay = document.getElementById("timer-display");
+    var hours = Math.floor(remainingTime / 3600);
+    var minutes = Math.floor((remainingTime % 3600) / 60);
+    var seconds = remainingTime % 60;
+
+    timerDisplay.textContent = formatTimeTimer(hours, minutes, seconds);
+}
+
+function formatTimeTimer(hours, minutes, seconds) {
+    return (
+        (hours < 10 ? "0" + hours : hours) + ":" +
+        (minutes < 10 ? "0" + minutes : minutes) + ":" +
+        (seconds < 10 ? "0" + seconds : seconds)
+    );
+}
+
+function checkInput(input, nextFieldId) {
+    if (input.value.length === 2) {
+        document.getElementById(nextFieldId).focus();
+        if (nextFieldId === "hours-input") {
+            hoursInput.select();
+        } else if (nextFieldId === "minutes-input") {
+            minutesInput.select();
+        } else if (nextFieldId === "seconds-input") {
+            secondsInput.select();
+        }
+    }
+}
+
+function tabToNextField(event, nextFieldId) {
+    if (event.key === "Tab" && event.target.value.length === 2) {
+        event.preventDefault();
+        document.getElementById(nextFieldId).focus();
+        if (nextFieldId === "hours-input") {
+            hoursInput.select();
+        } else if (nextFieldId === "minutes-input") {
+            minutesInput.select();
+        } else if (nextFieldId === "seconds-input") {
+            secondsInput.select();
+        }
+    }
+}
+
+window.addEventListener("keydown", function (event) {
+    if (event.key === "Enter" && document.activeElement.tagName !== "BUTTON") {
+        if (document.getElementById("input-menu").style.display === "block") {
+            startTimer();
+        }
+    }
+});
+
+window.addEventListener("load", function () {
+    updateTimerDisplay();
+});
+
+window.addEventListener("beforeunload", function () {
+    pauseTimer();
+});
+
+if (pausedTime > 0) {
+    remainingTime = pausedTime;
+    pausedTime = 0;
+    isPaused = true;
+    updateTimerDisplay();
+}

@@ -2,187 +2,449 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Website Workspace</title>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="pictures/faviconNeu.png" type="image/x-icon">
+  <title>Website Workspace</title>
 
-    <link rel="stylesheet" href="css/stylesheet.css">
-    <link rel="stylesheet" href="css/einheiten.css">
-    <link rel="stylesheet" href="css/calculator.css">
-    <link rel="stylesheet" href="css/timeDifference.css">
-    <link rel="stylesheet" href="css/translator.css">
-    <link rel="stylesheet" href="css/links.css">
-    <link rel="stylesheet" href="css/searchBar.css">
-    <link rel="stylesheet" href="css/uhr.css">
-    <link rel="stylesheet" href="css/footer.css">
-    <link rel="stylesheet" href="css/settings.css">
+  <link rel="stylesheet" href="css/stylesheet.css">
+  <link rel="stylesheet" href="css/einheiten.css">
+  <link rel="stylesheet" href="css/calculator.css">
+  <link rel="stylesheet" href="css/timeDifference.css">
+  <link rel="stylesheet" href="css/translator.css">
+  <link rel="stylesheet" href="css/links.css">
+  <link rel="stylesheet" href="css/searchBar.css">
+  <link rel="stylesheet" href="css/uhr.css">
+  <link rel="stylesheet" href="css/footer.css">
+  <link rel="stylesheet" href="css/settings.css">
 
-    <script src="https://kit.fontawesome.com/278526c7b3.js" crossorigin="anonymous"></script>
-    <script src="js/script.js"></script>
+  <script src="https://kit.fontawesome.com/278526c7b3.js" crossorigin="anonymous"></script>
+  <script src="js/script.js"></script>
 </head>
 
 <body>
-    <div class="container">
-        <div class="navbar">
-            <button class="scrollLink" onclick="scrollUp()">Suche</button>
-            <a class="scrollLink" href="#uhrCanvas" id="time" class="clock">Uhr: 00:00:00</a>
-            <a class="scrollLink" href="#uhrCanvas" id="date" class="clock">Kalender 00.00.0000</a>
-            <a class="scrollLink" href="#einheiten">Einheiten umrechnen</a>
-            <a class="scrollLink" href="#calculator">Taschenrechner</a>
-            <a class="scrollLink" href="#dateCalculator">Datum Rechner</a>
-            <a class="scrollLink" href="#translator">Übersetzer</a>
-            <a class="scrollLink" href="#links">Wichtige Links</a>
-            <button class="scrollLink" onclick="settingsVisibe()"><i class="fa-solid fa-gear"></i></button>
-            </ul>
-        </div>
-        <div class="menu-icon">&#9776;</div>
-        <script>
-            const menuIcon = document.querySelector('.menu-icon');
-            const navbar = document.querySelector('.navbar');
+  <script src="js/settings.js"></script>
 
-            menuIcon.addEventListener('click', () => {
-                navbar.classList.toggle('active');
-            });
-        </script>
-        <div class="toolsContainer">
-            <div class="topBar">
-                <script src="js/searchBar.js"></script>
-                <div class="searchBarWrapper" id="suche">
-                    <input placeholder="Mit Google suchen..." class="searchBar" id="suchtext"
-                        onkeypress="handleEnterSearchBar(event)"></input>
-                    <br>
-                    <button class="searchButton" onclick="suche()"><i class="fa-solid fa-magnifying-glass"></i></button>
-                </div>
-            </div>
+  <div id="settings">
+    <button onclick="settingsInvisible()"><i class="fa-solid fa-xmark"></i></button>
+    <br>
+    <input type="checkbox" id="translatorCheckbox" onchange="toggleVisibility('translator')" checked>
+    <label for="translatorCheckbox">Übersetzer</label>
+    <br>
+    <input type="checkbox" id="clockCheckbox" onchange="toggleVisibility('clock')" checked>
+    <label for="clockCheckbox">Uhr</label>
+    <br>
+    <input type="checkbox" id="einheitenCheckbox" onchange="toggleVisibility('einheiten')" checked>
+    <label for="einheitenCheckbox">Einheiten Umrechner</label>
+    <br>
+    <input type="checkbox" id="calculatorCheckbox" onchange="toggleVisibility('calculator')" checked>
+    <label for="calculatorCheckbox">Taschenrechner</label>
+    <br>
+    <input type="checkbox" id="dateCalculatorCheckbox" onchange="toggleVisibility('dateCalculator')" checked>
+    <label for="dateCalculatorCheckbox">Datum Rechner</label>
+    <br>
+    <input type="checkbox" id="shortenerCheckbox" onchange="toggleVisibility('shortener')" checked>
+    <label for="shortenerCheckbox">Link Shortener</label>
+    <br>
+    <input type="checkbox" id="linksCheckbox" onchange="toggleVisibility('links')" checked>
+    <label for="linksCheckbox">Links speichern</label>
+    <br>
+    <input class="button-small" type="file" id="bgImageInput">
+    <button class="button-small" onclick="setBackground()">Hintergrund festlegen</button>
+    <button class="button-small" onclick="resetBackground()">Hintergrund zurücksetzen</button>
+  </div>
 
-            <div class="toolBig" id="translator">
-                <div class="translatorContainer">
-                    <div class="inputContainer">
-                        <label for="source_lang">Ausgangssprache:</label>
-                        <select id="source_lang" class="button" onchange="setPlaceholder(), uebersetze()">
-                            <option value="de">Deutsch</option>
-                            <option value="en">Englisch</option>
-                            <option value="fr">Französisch</option>
-                            <option value="es">Spanisch</option>
-                            <option value="it">Italienisch</option>
-                            <option value="pt">Portugiesisch</option>
-                            <option value="nl">Niederländisch</option>
-                            <option value="sv">Schwedisch</option>
-                            <option value="no">Norwegisch</option>
-                            <option value="da">Dänisch</option>
-                            <option value="fi">Finnisch</option>
-                            <option value="pl">Polnisch</option>
-                            <option value="cs">Tschechisch</option>
-                            <option value="sk">Slowakisch</option>
-                            <option value="hu">Ungarisch</option>
-                            <option value="ro">Rumänisch</option>
-                            <option value="bg">Bulgarisch</option>
-                            <option value="hr">Kroatisch</option>
-                            <option value="sr">Serbisch</option>
-                            <option value="sl">Slowenisch</option>
-                            <option value="et">Estnisch</option>
-                            <option value="lv">Lettisch</option>
-                            <option value="lt">Litauisch</option>
-                            <option value="el">Griechisch</option>
-                            <option value="zh-CN">Chinesisch (vereinfacht)</option>
-                        </select><br><br>
-
-                        <textarea class="eingabe" type="text" id="input_text" name="input_text"
-                            onkeypress="handleEnterTranslator(event)"></textarea>
-                        <br><br>
-                    </div>
-
-                    <div class="outputContainer">
-                        <label for="target_lang">Zielsprache:</label>
-                        <select id="target_lang" class="button" onchange="setPlaceholder(), uebersetze()">
-                            <option value="en">Englisch</option>
-                            <option value="de">Deutsch</option>
-                            <option value="fr">Französisch</option>
-                            <option value="es">Spanisch</option>
-                            <option value="it">Italienisch</option>
-                            <option value="pt">Portugiesisch</option>
-                            <option value="nl">Niederländisch</option>
-                            <option value="sv">Schwedisch</option>
-                            <option value="no">Norwegisch</option>
-                            <option value="da">Dänisch</option>
-                            <option value="fi">Finnisch</option>
-                            <option value="pl">Polnisch</option>
-                            <option value="cs">Tschechisch</option>
-                            <option value="sk">Slowakisch</option>
-                            <option value="hu">Ungarisch</option>
-                            <option value="ro">Rumänisch</option>
-                            <option value="bg">Bulgarisch</option>
-                            <option value="hr">Kroatisch</option>
-                            <option value="sr">Serbisch</option>
-                            <option value="sl">Slowenisch</option>
-                            <option value="et">Estnisch</option>
-                            <option value="lv">Lettisch</option>
-                            <option value="lt">Litauisch</option>
-                            <option value="el">Griechisch</option>
-                            <option value="zh-CN">Chinesisch (vereinfacht)</option>
-                        </select><br><br>
-                        <textarea class="eingabe" type="text" id="output_text" name="output_text"></textarea>
-                    </div>
-                </div>
-            </div>
-
-            <div class="toolSmall" id="einheiten">
-                <script src="js/einheiten.js"></script>
-                <h1 style="font-size: 20px;">Einheiten Umrechner</h1>
-                <label for="select1">Einheitentyp:</label>
-                <select class="button" id="select1" onchange="selectChange()">
-                    <option value="choose" selected>Wählen</option>
-                    <option value="length">Länge</option>
-                    <option value="time">Zeit</option>
-                    <option value="velocity">Geschwindigkeit</option>
-                    <option value="area">Fläche</option>
-                    <option value="energy">Energie</option>
-                    <option value="mass">Masse</option>
-                    <option value="temperature">Temperatur</option>
-                    <option value="volume">Volumen</option>
-                    <option value="power">Leistung</option>
-                </select>
-                <br><br>
-                <label for="select2">Ausgangseinheit:</label>
-                <select class="button" id="select2" onchange="convert()">
-                </select>
-                <br><br>
-                <label for="input">Eingabe:</label>
-                <input type="number" id="input" onchange="convert()">
-                <br><br>
-                <label for="result">Ergebnis:</label>
-                <input type="text" id="result" disabled>
-                <button onclick="copyToClipboard()">Kopieren</button>
-                <br><br>
-                <label for="select3">Zieleinheit:</label>
-                <select class="button" id="select3" onchange="convert()">
-                </select>
-                <br><br>
-                <button class="button-small" onclick="swapUnits()">Einheiten tauschen</button>
-            </div>
-
-            <div class="footer">
-                <script src="js/footer.js"></script>
-
-                <a href="impressum.index">Impressum</a>
-                <a href="datenschutz.index">Datenschutzerklärung</a>
-            </div>
-        </div>
+  <div class="container">
+    <div class="navbar">
+      <button class="scrollLink" onclick="scrollUp()">Suche</button>
+      <a class="scrollLink" href="#clock" id="time" class="clock">Uhr: 00:00:00</a>
+      <a class="scrollLink" href="#uhrCanvas" id="date" class="clock">Kalender 00.00.0000</a>
+      <a class="scrollLink" href="#einheiten">Einheiten umrechnen</a>
+      <a class="scrollLink" href="#calculator">Taschenrechner</a>
+      <a class="scrollLink" href="#dateCalculator">Datum Rechner</a>
+      <a class="scrollLink" href="#translator">Übersetzer</a>
+      <a class="scrollLink" href="#links">Wichtige Links</a>
+      <button class="scrollLink" onclick="settingsVisibe()"><i class="fa-solid fa-gear"></i></button>
+      </ul>
     </div>
+    <div class="menu-icon">&#9776;</div>
+    <script>
+      const menuIcon = document.querySelector('.menu-icon');
+      const navbar = document.querySelector('.navbar');
+
+      menuIcon.addEventListener('click', () => {
+        navbar.classList.toggle('active');
+      });
+    </script>
+    <div class="toolsContainer">
+      <div class="topBar">
+        <script src="js/searchBar.js"></script>
+        <div class="searchBarWrapper" id="suche">
+          <input placeholder="Mit Google suchen..." class="searchBar" id="suchtext"
+            onkeypress="handleEnterSearchBar(event)"></input>
+          <br>
+          <button class="searchButton" onclick="suche()"><i class="fa-solid fa-magnifying-glass"></i></button>
+        </div>
+      </div>
+
+      <div class="toolSmall" id="clock">
+        <button id="openButton" class="invisible-button" onclick="openPopup()">
+          <div class="clock">
+            <div class="hour-hand"></div>
+            <div class="minute-hand"></div>
+            <div class="second-hand"></div>
+          </div>
+        </button>
+
+        <script src="js/uhr.js"></script>
+      </div>
+
+      <div id="ClockPopup" class="draggable">
+        <div class="header" onmousedown="startDragging(event)" ontouchstart="startDragging(event)">
+          Verschiebe mich!
+          <button id="closeButton" onclick="closePopup()"><i class="fa-solid fa-xmark fa-xl"></i></button>
+        </div>
+        <div class="content">
+
+          <div style="text-align: center;">
+            <span id="headingStopwatch" onclick="showStopwatch()">Stopwatch</span>
+            <span id="headingTimer" onclick="showTimer()">Timer</span>
+          </div>
+
+          <br><br>
+          <div id="stopwatchSection">
+            <div id="stopwatch">00:00:000</div>
+            <button class="button" onclick="startStopwatch()">Start</button>
+            <button class="button" onclick="pauseStopwatch()">Pause</button>
+            <button class="button" onclick="resetStopwatch()">Reset</button>
+            <button class="button" onclick="recordTime()">Runde</button>
+            <ol id="stopwatchList"></ol>
+          </div>
+
+          <div id="timerSection">
+            <div id="timer-display" onclick="showInputMenu()">00:00:00</div>
+            <div id="input-menu">
+              <input type="text" class="input-field" id="hours-input" maxlength="2" placeholder="HH"
+                oninput="checkInput(this, 'minutes-input')">
+              :
+              <input type="text" class="input-field" id="minutes-input" maxlength="2" placeholder="MM"
+                oninput="checkInput(this, 'seconds-input')">
+              :
+              <input type="text" class="input-field" id="seconds-input" maxlength="2" placeholder="SS"
+                oninput="checkInput(this, 'hours-input')">
+              <br>
+              <button class="button" onclick="startTimer()">Start</button>
+              <button class="button" onclick="hideInputMenu()">Abbrechen</button>
+            </div>
+            <button class="button" onclick="startTimer()" id="start-button">Start</button>
+            <button class="button" onclick="pauseTimer()" id="pause-button">Pause</button>
+            <button class="button" onclick="resetTimer()" id="reset-button">Reset</button>
+          </div>
+
+        </div>
+      </div>
+
+
+      <script>
+        let isDragging = false;
+        let initialX;
+        let initialY;
+        let offsetX = 0;
+        let offsetY = 0;
+
+        function startDragging(event) {
+          isDragging = true;
+
+          if (event.type === 'mousedown') {
+            initialX = event.clientX - offsetX;
+            initialY = event.clientY - offsetY;
+
+            document.addEventListener('mousemove', drag);
+            document.addEventListener('mouseup', stopDragging);
+          } else if (event.type === 'touchstart') {
+            initialX = event.touches[0].clientX - offsetX;
+            initialY = event.touches[0].clientY - offsetY;
+
+            document.addEventListener('touchmove', drag);
+            document.addEventListener('touchend', stopDragging);
+          }
+        }
+
+        function drag(event) {
+          if (!isDragging) return;
+
+          event.preventDefault();
+
+          if (event.type === 'mousemove') {
+            offsetX = event.clientX - initialX;
+            offsetY = event.clientY - initialY;
+          } else if (event.type === 'touchmove') {
+            offsetX = event.touches[0].clientX - initialX;
+            offsetY = event.touches[0].clientY - initialY;
+          }
+
+          const popup = document.getElementById('ClockPopup');
+          popup.style.transform = `translate(${offsetX}px, ${offsetY}px)`;
+        }
+
+        function stopDragging() {
+          isDragging = false;
+
+          document.removeEventListener('mousemove', drag);
+          document.removeEventListener('mouseup', stopDragging);
+          document.removeEventListener('touchmove', drag);
+          document.removeEventListener('touchend', stopDragging);
+        }
+
+        function openPopup() {
+          const popup = document.getElementById('ClockPopup');
+          popup.style.display = 'block';
+        }
+      </script>
 
 
 
+      <div class="toolBig" id="translator">
+        <script src="js/translator.js"></script>
+        <div class="translatorContainer">
+          <div class="inputContainer">
+            <label for="source_lang">Ausgangssprache:</label>
+            <select id="source_lang" class="button" onchange="setPlaceholder(), uebersetze()">
+              <option value="de">Deutsch</option>
+              <option value="en">Englisch</option>
+              <option value="fr">Französisch</option>
+              <option value="es">Spanisch</option>
+              <option value="it">Italienisch</option>
+              <option value="pt">Portugiesisch</option>
+              <option value="nl">Niederländisch</option>
+              <option value="sv">Schwedisch</option>
+              <option value="no">Norwegisch</option>
+              <option value="da">Dänisch</option>
+              <option value="fi">Finnisch</option>
+              <option value="pl">Polnisch</option>
+              <option value="cs">Tschechisch</option>
+              <option value="sk">Slowakisch</option>
+              <option value="hu">Ungarisch</option>
+              <option value="ro">Rumänisch</option>
+              <option value="bg">Bulgarisch</option>
+              <option value="hr">Kroatisch</option>
+              <option value="sr">Serbisch</option>
+              <option value="sl">Slowenisch</option>
+              <option value="et">Estnisch</option>
+              <option value="lv">Lettisch</option>
+              <option value="lt">Litauisch</option>
+              <option value="el">Griechisch</option>
+              <option value="zh-CN">Chinesisch (vereinfacht)</option>
+            </select><br><br>
 
+            <textarea class="eingabe" type="text" id="input_text" name="input_text"
+              onkeypress="handleEnterTranslator(event)"></textarea>
+            <br><br>
+          </div>
 
+          <div class="outputContainer">
+            <label for="target_lang">Zielsprache:</label>
+            <select id="target_lang" class="button" onchange="setPlaceholder(), uebersetze()">
+              <option value="en">Englisch</option>
+              <option value="de">Deutsch</option>
+              <option value="fr">Französisch</option>
+              <option value="es">Spanisch</option>
+              <option value="it">Italienisch</option>
+              <option value="pt">Portugiesisch</option>
+              <option value="nl">Niederländisch</option>
+              <option value="sv">Schwedisch</option>
+              <option value="no">Norwegisch</option>
+              <option value="da">Dänisch</option>
+              <option value="fi">Finnisch</option>
+              <option value="pl">Polnisch</option>
+              <option value="cs">Tschechisch</option>
+              <option value="sk">Slowakisch</option>
+              <option value="hu">Ungarisch</option>
+              <option value="ro">Rumänisch</option>
+              <option value="bg">Bulgarisch</option>
+              <option value="hr">Kroatisch</option>
+              <option value="sr">Serbisch</option>
+              <option value="sl">Slowenisch</option>
+              <option value="et">Estnisch</option>
+              <option value="lv">Lettisch</option>
+              <option value="lt">Litauisch</option>
+              <option value="el">Griechisch</option>
+              <option value="zh-CN">Chinesisch (vereinfacht)</option>
+            </select><br><br>
+            <textarea class="eingabe" type="text" id="output_text" name="output_text"></textarea>
+          </div>
+        </div>
+      </div>
 
+      <div class="toolSmall" id="einheiten">
+        <script src="js/einheiten.js"></script>
+        <h1 style="font-size: 20px;">Einheiten Umrechner</h1>
+        <label for="select1">Einheitentyp:</label>
+        <select class="button" id="select1" onchange="selectChange()">
+          <option value="choose" selected>Wählen</option>
+          <option value="length">Länge</option>
+          <option value="time">Zeit</option>
+          <option value="velocity">Geschwindigkeit</option>
+          <option value="area">Fläche</option>
+          <option value="energy">Energie</option>
+          <option value="mass">Masse</option>
+          <option value="temperature">Temperatur</option>
+          <option value="volume">Volumen</option>
+          <option value="power">Leistung</option>
+        </select>
+        <br><br>
+        <label for="select2">Ausgangseinheit:</label>
+        <select class="button" id="select2" onchange="convert()">
+        </select>
+        <br><br>
+        <label for="input">Eingabe:</label>
+        <input type="number" id="input" onchange="convert()">
+        <br><br>
+        <label for="result">Ergebnis:</label>
+        <input type="text" id="result" disabled>
+        <button onclick="copyToClipboard()">Kopieren</button>
+        <br><br>
+        <label for="select3">Zieleinheit:</label>
+        <select class="button" id="select3" onchange="convert()">
+        </select>
+        <br><br>
+        <button class="button-small" onclick="swapUnits()">Einheiten tauschen</button>
+      </div>
 
+      <div class="toolSmall" id="calculator">
+        <form>
+          <input class="result-bar" type="text" id="equation" name="equation"
+            style="width: 100%; font-size: 20px; padding: 5px;">
+          <br><br>
 
+          <div>
+            <i class="fa-solid fa-equals"></i>
+            <input id="solution" type="text" name="equation">
+          </div>
 
+          <br><br>
 
+          <button class="button-small" type="button" onclick="copysolution()">Ergebnis kopieren</button>
+          <button class="button-small" type="button" onclick="roundsolution()">Runden auf <input class="input-button"
+              type="number" id="roundTo" min="0" max="10" value="2" style="width: 50px;"> Nachkommastellen</button>
+        </form>
+        <br>
+        <table>
+          <tr>
+            <td><button class="button-figure" type="button" onclick="addToEquation('7')">7</button></td>
+            <td><button class="button-figure" type="button" onclick="addToEquation('8')">8</button></td>
+            <td><button class="button-figure" type="button" onclick="addToEquation('9')">9</button></td>
+            <td><button class="button-figure" type="button" onclick="addToEquation('/')">/</button></td>
+          </tr>
+          <tr>
+            <td><button class="button-figure" type="button" onclick="addToEquation('4')">4</button></td>
+            <td><button class="button-figure" type="button" onclick="addToEquation('5')">5</button></td>
+            <td><button class="button-figure" type="button" onclick="addToEquation('6')">6</button></td>
+            <td><button class="button-figure" type="button" onclick="addToEquation('*')">*</button></td>
+          </tr>
+          <tr>
+            <td><button class="button-figure" type="button" onclick="addToEquation('1')">1</button></td>
+            <td><button class="button-figure" type="button" onclick="addToEquation('2')">2</button></td>
+            <td><button class="button-figure" type="button" onclick="addToEquation('3')">3</button></td>
+            <td><button class="button-figure" type="button" onclick="addToEquation('-')">-</button></td>
+          </tr>
+          <tr>
+            <td><button class="button-figure" type="button" onclick="addToEquation('0')">0</button></td>
+            <td><button class="button-figure" type="button" onclick="addToEquation('.')">.</button></td>
+            <td><button class="button-figure" type="button" onclick="clearEquation()">C</button></td>
+            <td><button class="button-figure" type="button" onclick="addToEquation('+')">+</button></td>
+          </tr>
+          <tr>
+            <td colspan="4"><button class="button-figure" type="button" onclick="calc()">=</button></td>
+          </tr>
+        </table>
 
+        <script src="js/calculator.js"></script>
+      </div>
 
+      <div class="toolSmall" id="dateCalculator">
+        <h1>Zeitdifferenz</h1>
+        <select class="button" id="rechner" onchange="zeigeRechner()">
+          <option value="datum" selected>Datum-Rechner</option>
+          <option value="zeit">Zeit-Rechner</option>
+          <option value="datumzeit">Datum/Zeit-Rechner</option>
+        </select>
+        <br><br>
+        <div id="datum-rechner">
+          <h2>Datum-Rechner</h2>
+          <form>
+            <label for="startdatum">Startdatum:</label>
+            <input type="date" id="startdatum" name="startdatum">
+            <label for="enddatum">Enddatum:</label>
+            <input type="date" id="enddatum" name="enddatum">
+            <br><br>
+            <input type="button" value="Berechnen" onclick="berechneDatumDifferenz()">
+          </form>
+          <p id="datum-ergebnis"></p>
+        </div>
+
+        <div id="zeit-rechner">
+          <h2>Zeit-Rechner</h2>
+          <form>
+            <label for="startzeit">Startzeit:</label>
+            <input type="time" id="startzeit" name="startzeit">
+            <label for="endzeit">Endzeit:</label>
+            <input type="time" id="endzeit" name="endzeit">
+            <br><br>
+            <input type="button" value="Berechnen" onclick="berechneZeitdifferenz()">
+          </form>
+          <p id="zeit-ergebnis"></p>
+        </div>
+
+        <div id="datumzeit-rechner">
+          <h2>Datum/Zeit-Rechner</h2>
+          <form>
+            <label for="startdatumzeit">Startdatum und -zeit:</label>
+            <input type="datetime-local" id="startdatumzeit" name="startdatumzeit">
+            <label for="enddatumzeit">Enddatum und -zeit:</label>
+            <input type="datetime-local" id="enddatumzeit" name="enddatumzeit">
+            <br><br>
+            <input type="button" value="Berechnen" onclick="berechneDatumUndZeitdifferenz()">
+          </form>
+          <p id="datumzeit-ergebnis"></p>
+        </div>
+
+        <script src="js/timeDifference.js"></script>
+
+      </div>
+
+      <div class="toolSmall" id="shortener">
+        <h1>URL Shortener</h1>
+        <input type="text" id="input" placeholder="Gib einen Link ein">
+        <button onclick="shortenUrl()">Verkürzen</button>
+        <p id="output"></p>
+      </div>
+
+      <div class="footer">
+        <script src="js/footer.js"></script>
+
+        <a href="impressum.index">Impressum</a>
+        <a href="datenschutz.index">Datenschutzerklärung</a>
+        <h4>Credits</h4>
+        <a href="https://www.flaticon.com/free-icons/mathematics" title="mathematics icons">Mathematics icons created by
+          surang - Flaticon</a>
+      </div>
     </div>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
 
 </body>
 
