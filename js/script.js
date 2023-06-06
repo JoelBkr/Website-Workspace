@@ -3,12 +3,15 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 function setDropdownValue() {
-  document.getElementById("datum-rechner").style.display = "0";
-  document.getElementById("zeit-rechner").style.display = "none";
-  document.getElementById("datumzeit-rechner").style.display = "none";
+  document.getElementById("rechner").value = "datum";
 
   var select1 = document.getElementById("select1");
   select1.value = "choose";
+
+  var rechnerArt = document.getElementById("rechnerArt");
+  rechnerArt.value = "Differenz";
+  var rechner = document.getElementById("rechner");
+  rechner.value = "datum";
 
   setPlaceholder();
 }
@@ -20,7 +23,6 @@ function scrollUp() {
 }
 
 //Script für die Navbar
-
 document.addEventListener("DOMContentLoaded", function() {
   const menuIcon = document.querySelector(".menu-icon");
   const navbar = document.querySelector(".navbar");

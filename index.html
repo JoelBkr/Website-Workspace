@@ -26,43 +26,52 @@
 <body>
   <script src="js/settings.js"></script>
 
-  <div id="settings" class="settings">
-
-    <div class="settingsNav">
-      <h1 style="text-align: center;">Settings</h1>
-      <button class="button" onclick="toggleSettingVisibility('tools')">Tools</button>
-      <button class="button" onclick="toggleSettingVisibility('background')">Background</button>
+  
+  
+  
+<div id="settings">
+  <div class="settingsNav">
+    <button class="settingsButton" id="link1" onclick="toggleSettingVisibility('tools'); active(1)">Tools</button>
+    <button class="settingsButton" id="link2" onclick="toggleSettingVisibility('background'); active(2)">Background</button>
+    <button class="settingsButton" id="link3" onclick="toggleSettingVisibility('setting3'); active(3)">kommt noch</button>
+    <button class="settingsButton" id="link4" onclick="toggleSettingVisibility('setting4'); active(4)">kommt noch</button>
+  </div>
+  
+  <div class="settingsContent">
+    <button style="position: absolute; right: 10px; top: 10px; height: 30px; width: 30px;" class="button" onclick="closeSettings()"><i class="fa-solid fa-xmark fa-xl"></i></button>
+    <div class="oneSetting" id="toolsSettings" style="display: block;">
+      <h1>Settings für Tools</h1>
+      <br>
+      <input type="checkbox" id="translatorCheckbox" onchange="toggleVisibility('translator')" checked>
+      <label for="translatorCheckbox">Übersetzer</label>
+      <br>
+      <input type="checkbox" id="clockCheckbox" onchange="toggleVisibility('clock')" checked>
+      <label for="clockCheckbox">Uhr</label>
+      <br>
+      <input type="checkbox" id="einheitenCheckbox" onchange="toggleVisibility('einheiten')" checked>
+      <label for="einheitenCheckbox">Einheiten Umrechner</label>
+      <br>
+      <input type="checkbox" id="calculatorCheckbox" onchange="toggleVisibility('calculator')" checked>
+      <label for="calculatorCheckbox">Taschenrechner</label>
+      <br>
+      <input type="checkbox" id="dateCalculatorCheckbox" onchange="toggleVisibility('dateCalculator')" checked>
+      <label for="dateCalculatorCheckbox">Datum Rechner</label>
     </div>
-
-    <div class="settingsContent">
-      <button style="float: right; color: white; background-color: black;" class="button" onclick="settingsInvisible()">
-        <i class="fa-solid fa-xmark fa-xl"></i></button>
-      <div class="oneSetting" id="toolsSettings" style="display: none;">
-        <h1>Settings für Tools</h1>
-        <br>
-        <input type="checkbox" id="translatorCheckbox" onchange="toggleVisibility('translator')" checked>
-        <label for="translatorCheckbox">Übersetzer</label>
-        <br>
-        <input type="checkbox" id="clockCheckbox" onchange="toggleVisibility('clock')" checked>
-        <label for="clockCheckbox">Uhr</label>
-        <br>
-        <input type="checkbox" id="einheitenCheckbox" onchange="toggleVisibility('einheiten')" checked>
-        <label for="einheitenCheckbox">Einheiten Umrechner</label>
-        <br>
-        <input type="checkbox" id="calculatorCheckbox" onchange="toggleVisibility('calculator')" checked>
-        <label for="calculatorCheckbox">Taschenrechner</label>
-        <br>
-        <input type="checkbox" id="dateCalculatorCheckbox" onchange="toggleVisibility('dateCalculator')" checked>
-        <label for="dateCalculatorCheckbox">Datum Rechner</label>
-      </div>
-      <div class="oneSetting" id="backgroundSettings" style="display: none;">
-        <h1>Settings für Background</h1>
-        <input type="file" id="imageInput" accept="image/*">
-        <button onclick="setBackground()">Als Hintergrund festlegen</button>
-        <button onclick="resetBackground()">Reset</button>
-      </div>
+    <div class="oneSetting" id="backgroundSettings" style="display: none;">
+      <h1>Settings für Background</h1>
+      <input class="button" type="file" id="imageInput" accept="image/*">
+      <button class="button" onclick="setBackground()">Als Hintergrund festlegen</button>
+      <button class="button" onclick="resetBackground()">Reset</button>
+    </div>
+    <div class="oneSetting" id="setting3Settings" style="display: none;">
+      <h1>Settings für fds</h1>
+    </div>
+    <div class="oneSetting" id="setting4Settings" style="display: none;">
+      <h1>Settings für dsadsdssddssdsd</h1>
     </div>
   </div>
+</div>
+
 
   <div class="container">
     <div class="navbar">
@@ -72,7 +81,7 @@
       <a class="scrollLink" href="#einheiten">Einheiten umrechnen</a>
       <a class="scrollLink" href="#calculator">Taschenrechner</a>
       <a class="scrollLink" href="#translator">Übersetzer</a>
-      <button class="scrollLink" onclick="settingsVisible()">Einstellungen</button>
+      <button class="scrollLink" onclick="openSettings()">Einstellungen</button>
     </div>
     <div class="menu-icon">&#9776;</div>
 
@@ -302,52 +311,182 @@
       </div>
 
       <div class="toolSmall" id="dateCalculator">
-        <h1>Zeitdifferenz</h1>
+        <script src="js/timeCalculator.js"></script>
+
+        <h1>Zeitrechner</h1>
+        <select class="button" id="rechnerArt" onchange="zeigeRechnerart(), zeigeRechner()">
+          <option value="Differenz" selected>Differenz</option>
+          <option value="Addition">Addition</option>
+          <option value="Subtraktion">Subtraktion</option>
+        </select>
         <select class="button" id="rechner" onchange="zeigeRechner()">
-          <option value="datum" selected>Datum-Rechner</option>
-          <option value="zeit">Zeit-Rechner</option>
-          <option value="datumzeit">Datum/Zeit-Rechner</option>
+          <option value="datum" selected>Datum</option>
+          <option value="zeit">Zeit</option>
+          <option value="datumzeit">Datum und Zeit</option>
         </select>
         <br><br>
         <div id="datum-rechner">
           <form>
-            <label for="startdatum">Startdatum:</label>
-            <input type="date" id="startdatum" name="startdatum">
-            <label for="enddatum">Enddatum:</label>
-            <input type="date" id="enddatum" name="enddatum">
+            <label for="startdatum">Start:</label>
+            <input class="button" type="date" id="startdatum" name="startdatum" onchange="berechneDatumDifferenz()">
+            <br>
+            <label for="enddatum">Ende:</label>
+            <input class="button" type="date" id="enddatum" name="enddatum">
             <br><br>
-            <input type="button" value="Berechnen" onclick="berechneDatumDifferenz()">
+            <input class="button" type="button" value="Berechnen" onclick="berechneDatumDifferenz()">
           </form>
           <p id="datum-ergebnis"></p>
         </div>
 
         <div id="zeit-rechner">
           <form>
-            <label for="startzeit">Startzeit:</label>
-            <input type="time" id="startzeit" name="startzeit">
-            <label for="endzeit">Endzeit:</label>
-            <input type="time" id="endzeit" name="endzeit">
+            <label for="startzeit">Start:</label>
+            <input class="button" type="time" id="startzeit" name="startzeit" onchange="berechneZeitdifferenz()">
+            <br>
+            <label for="endzeit">Ende:</label>
+            <input class="button" type="time" id="endzeit" name="endzeit">
             <br><br>
-            <input type="button" value="Berechnen" onclick="berechneZeitdifferenz()">
+            <input class="button" type="button" value="Berechnen" onclick="berechneZeitdifferenz()">
           </form>
           <p id="zeit-ergebnis"></p>
         </div>
 
         <div id="datumzeit-rechner">
           <form>
-            <label for="startdatumzeit">Startdatum und -zeit:</label>
-            <input type="datetime-local" id="startdatumzeit" name="startdatumzeit">
-            <label for="enddatumzeit">Enddatum und -zeit:</label>
-            <input type="datetime-local" id="enddatumzeit" name="enddatumzeit">
+            <label for="startdatumzeit">Start:</label>
+            <input class="button" type="datetime-local" id="startdatumzeit" name="startdatumzeit"
+              onchange="berechneDatumUndZeitdifferenz()">
+              <br>
+            <label for="enddatumzeit">Ende:</label>
+            <input class="button" type="datetime-local" id="enddatumzeit" name="enddatumzeit">
             <br><br>
-            <input type="button" value="Berechnen" onclick="berechneDatumUndZeitdifferenz()">
+            <input class="button" type="button" value="Berechnen" onclick="berechneDatumUndZeitdifferenz()">
           </form>
           <p id="datumzeit-ergebnis"></p>
         </div>
 
-        <script src="js/timeDifference.js"></script>
+        <div id="datumAddieren">
+          <label for="datum1">Datum:</label>
+          <input class="button" type="date" id="datum1" /><br><br>
+          <label for="zahl1Date">Zahl zum addieren:</label>
+          <input type="text" id="zahl1Date" placeholder="Zahl" /><br><br>
+          <label for="format1Date">Zeitformat:</label>
+          <select class="button" id="format1Date">
+              <option value="Jahre">Jahre</option>
+              <option value="Monate">Monate</option>
+              <option value="Wochen">Wochen</option>
+              <option value="Tage">Tage</option>
+          </select><br><br>
+          <button class="button" onclick="addierenDate()">Berechnen</button><br><br>
+          <label for="ergebnisDateAdd">Ergebnis:</label>
+          <span id="ergebnisDateAdd"></span>
+        </div>
 
+        <div id="ZeitAddieren">
+          <label for="zeit1">Uhrzeit:</label>
+          <input class="button" type="time" id="zeit1" /><br><br>
+          <label for="zahl1Time">Zahl zum addieren:</label>
+          <input type="text" id="zahl1Time" placeholder="Zahl" /><br><br>
+          <label for="format1Time">Zeitformat:</label>
+          <select class="button" id="format1Time">
+              <option value="Sekunden">Sekunden</option>
+              <option value="Minuten">Minuten</option>
+              <option value="Stunden">Stunden</option>
+          </select><br><br>
+          <button class="button" onclick="addierenTime()">Berechnen</button><br><br>
+          <label for="ergebnisTimeAdd">Ergebnis:</label>
+          <span id="ergebnisTimeAdd"></span>
+        </div>
+
+        <div id="datumZeitAddieren">
+          <label for="datum">Datum:</label>
+          <input class="button" type="date" id="datum"/>
+          <label for="uhrzeit">Uhrzeit:</label>
+          <input class="button" type="time" id="uhrzeit" /><br><br>
+          <label for="zahl">Zahl zum addieren:</label>
+          <input type="text" id="zahl" placeholder="Zahl" /><br><br>
+          <label for="format">Zeitformat:</label>
+          <select class="button" id="format">
+              <option value="Jahre">Jahre</option>
+              <option value="Monate">Monate</option>
+              <option value="Wochen">Wochen</option>
+              <option value="Tage">Tage</option>
+              <option value="Stunden">Stunden</option>
+              <option value="Minuten">Minuten</option>
+          </select><br><br>
+          <button class="button" onclick="addieren()">Berechnen</button><br><br>
+          <label for="ergebnis1">Ergebnis:</label>
+          <span id="ergebnis1"></span>
+        </div>
+
+        <div id="datumSubtrahieren">
+          <label for="datum2">Datum:</label>
+          <input class="button" type="date" id="datum2" /><br><br>
+          <label for="zahl2Date">Zahl zum subtrahieren:</label>
+          <input type="text" id="zahl2Date" placeholder="Zahl" /><br><br>
+          <label for="format2DateSub">Zeitformat:</label>
+          <select class="button" id="format2DateSub">
+              <option value="Jahre">Jahre</option>
+              <option value="Monate">Monate</option>
+              <option value="Wochen">Wochen</option>
+              <option value="Tage">Tage</option>
+          </select><br><br>
+          <button class="button" onclick="subtrahierenDate()">Berechnen</button><br><br>
+          <label for="ergebnisDateSub">Ergebnis:</label>
+          <span id="ergebnisDateSub"></span>
+        </div>
+
+        <div id="zeitSubtrahieren">
+          <label for="zeit2">Uhrzeit:</label>
+          <input class="button" type="time" id="zeit2" /><br><br>
+          <label for="zahl2Time">Zahl zum subtrahieren:</label>
+          <input type="text" id="zahl2Time" placeholder="Zahl" /><br><br>
+          <label for="format2TimeSub">Zeitformat:</label>
+          <select class="button" id="format2TimeSub">
+              <option value="Sekunden">Sekunden</option>
+              <option value="Minuten">Minuten</option>
+              <option value="Stunden">Stunden</option>
+          </select><br><br>
+          <button class="button" onclick="subtrahierenTime()">Berechnen</button><br><br>
+          <label for="ergebnisTimeSub">Ergebnis:</label>
+          <span id="ergebnisTimeSub"></span>
+        </div>
+
+        <div id="datumZeitSubtrahieren">
+          <label for="datum">Datum:</label>
+          <input class="button" type="date" id="datum2Beide" />
+          <label for="uhrzeit">Uhrzeit zum subtrahieren:</label>
+          <input class="button" type="time" id="uhrzeit2Beide" /><br><br>
+          <label for="zahl">Zahl:</label>
+          <input type="text" id="zahl2Beide" placeholder="Zahl" /><br><br>
+          <label for="format">Zeitformat:</label>
+          <select class="button" id="format2Beide">
+              <option value="Jahre">Jahre</option>
+              <option value="Monate">Monate</option>
+              <option value="Wochen">Wochen</option>
+              <option value="Tage">Tage</option>
+              <option value="Stunden">Stunden</option>
+              <option value="Minuten">Minuten</option>
+          </select><br><br>
+          <button class="button" onclick="subtrahieren()">Berechnen</button><br><br>
+          <label for="ergebnis2">Ergebnis:</label>
+          <span id="ergebnis2"></span>
+        </div>
+
+        <div id="ergebnisIn">
+          <label for="timeFormat">Ergebnis in:</label>
+        <select class="button" id="timeFormat" onchange="entscheideWelcherRechner()">
+          <option value="minutes">Minuten</option>
+          <option value="hours">Stunden</option>
+          <option value="days">Tage</option>
+          <option value="weeks">Wochen</option>
+          <option value="months">Monate</option>
+          <option value="years">Jahre</option>
+        </select>
+        </div>
       </div>
+
+
       <!--
   <div class="toolSmall" id="shortener">
         <h1>URL Shortener</h1>

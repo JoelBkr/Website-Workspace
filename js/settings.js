@@ -1,18 +1,22 @@
 //Alle Checkboxen auf checked setzen
 window.addEventListener('load', function () {
-  var checkboxes = document.querySelectorAll('.settings input[type="checkbox"]');
+  var checkboxes = document.querySelectorAll('.oneSetting input[type="checkbox"]');
   checkboxes.forEach(function (checkbox) {
     checkbox.checked = true;
   });
 });
 
-function settingsVisible() {
-  document.getElementById("settings").style.display = "block";
+
+function openSettings() {
+  const settings = document.getElementById('settings');
+  settings.style.bottom = "0";
 }
 
-function settingsInvisible() {
-  document.getElementById("settings").style.display = "none";
+function closeSettings() {
+  const settings = document.getElementById('settings');
+  settings.style.bottom = "-91vh";
 }
+
 
 function toggleVisibility(tool) {
   var checkbox = document.getElementById(tool + "Checkbox");
@@ -35,6 +39,19 @@ function toggleSettingVisibility(setting) {
   var setting = document.getElementById(setting + "Settings");
   setting.style.display = "block";
 }
+
+function active(number) {
+  var buttons = document.getElementsByClassName("settingsButton");
+
+  for (var i = 0; i < buttons.length; i++) {
+    buttons[i].style.border = "none";
+  }
+  var link = document.getElementById("link"+number);
+  link.style.border = "3px solid white";
+}
+
+
+
 
 //Background
 window.addEventListener('load', function () {
@@ -61,8 +78,7 @@ function setBackground() {
 
 function resetBackground() {
   // Hintergrund auf Farbverlauf zurücksetzen
-  document.querySelector(".container").style.background = "rgb(1, 122, 248)";
-  document.querySelector(".container").style.background = "background: linear-gradient(0deg, rgba(1, 122, 248, 1) 0%, rgba(152, 216, 251, 1) 50%, rgba(0, 151, 240, 1) 100%)";
+  document.querySelector(".container").style.background = "linear-gradient(0deg, rgba(1, 122, 248, 1) 0%, rgba(152, 216, 251, 1) 50%, rgba(0, 151, 240, 1) 100%)";
   // Hintergrundbild aus dem Local Storage entfernen
   localStorage.removeItem("bgImage");
 }

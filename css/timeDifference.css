@@ -1,3 +1,14 @@
 #datum-rechner {
     display: block;
 }
+
+#zeit-rechner, 
+#datumzeit-rechner,
+#datumAddieren,
+#ZeitAddieren,
+#datumZeitAddieren,
+#datumSubtrahieren,
+#zeitSubtrahieren,
+#datumZeitSubtrahieren {
+    display: none;
+}
